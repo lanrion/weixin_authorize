@@ -17,8 +17,8 @@ require "rspec"
 require "weixin_authorize"
 
 $client ||= WeixinAuthorize.configure do |config|
-  config.app_id     = "app_id-xxxxxxx"
-  config.app_secret = "app_secret-xxxxxxx"
+  config.app_id     = ENV["APPID"]
+  config.app_secret = ENV["APPSECRET"]
 end
 
 RSpec.configure do |config|
