@@ -6,6 +6,7 @@ module WeixinAuthorize
     attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     include Api::User
     include Api::Menu
+    include Api::Custom
 
     attr_accessor :access_token
 
