@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 module WeixinAuthorize
   module Api
     module Custom
@@ -15,7 +14,7 @@ module WeixinAuthorize
       # }
       def send_text_custom(to_user, content)
         message = default_options(to_user).merge({text: {content: content}})
-        JSON.parse(RestClient.post(custom_base_url, MultiJson.dump(message)))
+        http_post(custom_base_url, MultiJson.dump(message))
       end
 
       # 发送图片消息
@@ -29,7 +28,7 @@ module WeixinAuthorize
       # }
       def send_image_custom(to_user, media_id)
         message = default_options(to_user).merge({msgtype: image, image: {media_id: media_id}})
-        JSON.parse(RestClient.post(custom_base_url, MultiJson.dump(message)))
+        http_post(custom_base_url, MultiJson.dump(message))
       end
 
       # 发送语音消息
@@ -43,7 +42,7 @@ module WeixinAuthorize
       # }
       def send_voice_custom(to_user, media_id)
         message = default_options(to_user).merge({msgtype: voice, voice: {media_id: media_id}})
-        JSON.parse(RestClient.post(custom_base_url, MultiJson.dump(message)))
+        http_post(custom_base_url, MultiJson.dump(message))
       end
 
       # 发送视频消息
@@ -58,7 +57,7 @@ module WeixinAuthorize
       def send_video_custom(to_user, media_id, options)
         video_options = {media_id: media_id}.merge(options)
         message = default_options(to_user).merge({msgtype: video, video: video_options})
-        JSON.parse(RestClient.post(custom_base_url, MultiJson.dump(message)))
+        http_post(custom_base_url, MultiJson.dump(message))
       end
 
       # 发送音乐消息
@@ -78,7 +77,7 @@ module WeixinAuthorize
         music_options = { thumb_media_id: media_id, musicurl: musicurl,
                           hqmusicurl: hqmusicurl}.merge(options)
         message = default_options(to_user).merge({msgtype: music, music: music_options})
-        JSON.parse(RestClient.post(custom_base_url, MultiJson.dump(message)))
+        http_post(custom_base_url, MultiJson.dump(message))
       end
 
       # 发送图文消息
@@ -104,14 +103,14 @@ module WeixinAuthorize
       # }
       def send_news_custom(to_user, *articles)
         message = default_options(to_user).merge({msgtype: "news", news: {articles: articles}})
-        JSON.parse(RestClient.post(custom_base_url, MultiJson.dump(message)))
+        http_post(custom_base_url, MultiJson.dump(message))
       end
 
       private
 
         # https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN
         def custom_base_url
-          "#{endpoint}/message/custom/send?#{access_token_param}"
+          "/message/custom/send"
         end
 
         def default_options(to_user)
