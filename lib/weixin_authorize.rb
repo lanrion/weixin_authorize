@@ -1,5 +1,6 @@
 require "rest-client"
 require "weixin_authorize/version"
+require "weixin_authorize/api/user"
 require "weixin_authorize/client"
 
 module WeixinAuthorize
