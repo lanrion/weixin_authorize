@@ -39,16 +39,20 @@ module WeixinAuthorize
         {grant_type: "client_credential", appid: app_id, secret: app_secret}
       end
 
-      def endpoint
+      def plain_endpoint
         "https://api.weixin.qq.com/cgi-bin"
+      end
+
+      def file_endpoint
+        "http://file.api.weixin.qq.com/cgi-bin"
       end
 
       def access_token_param
         {access_token: get_access_token}
       end
 
-      def http_get_without_token(url, options={})
-        get_api_url = endpoint + url
+      def http_get_without_token(url, options={}, endpoint="plain")
+        get_api_url = send("#{endpoint}_endpoint") + url
         JSON.parse(RestClient.get(get_api_url, :params => options))
       end
 
@@ -58,8 +62,8 @@ module WeixinAuthorize
       end
 
       # Refactor
-      def http_post(url, options={})
-        post_api_url = endpoint + url + "?access_token=#{get_access_token}"
+      def http_post(url, options={}, endpoint="plain")
+        post_api_url = send("#{endpoint}_endpoint") + url + "?access_token=#{get_access_token}"
         JSON.parse(RestClient.post(post_api_url ,options))
       end
 
