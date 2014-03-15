@@ -19,6 +19,7 @@ require "weixin_authorize"
 $client ||= WeixinAuthorize.configure do |config|
   config.app_id     = ENV["APPID"]
   config.app_secret = ENV["APPSECRET"]
+  config.expired_at = Time.now.to_i
 end
 
 RSpec.configure do |config|
