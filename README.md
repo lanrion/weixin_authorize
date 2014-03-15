@@ -4,15 +4,15 @@
 
 Add this line to your application's Gemfile:
 
-  gem 'weixin_authorize'
+  `gem 'weixin_authorize'`
 
 And then execute:
 
-  $ bundle
+  `$ bundle`
 
 Or install it yourself as:
 
-  $ gem install weixin_authorize
+  `$ gem install weixin_authorize`
 
 ## Usage
 
@@ -42,28 +42,27 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
   `followers = $client.followers`
 
-### 分组管理
 
-* [分组管理接口](http://mp.weixin.qq.com/wiki/index.php?title=分组管理接口)
+### [分组管理接口](http://mp.weixin.qq.com/wiki/index.php?title=分组管理接口)
 
-  * 创建分组:
+* 创建分组:
 
-    `group = $client.create_group("test")`
+  `group = $client.create_group("test")`
 
-  * 查询所有分组:
+* 查询所有分组:
 
-    `groups = $client.groups`
-  * 查询用户所在分组:
+  `groups = $client.groups`
+* 查询用户所在分组:
 
-    `group = $client.get_group_for(ENV["OPENID"])`
+  `group = $client.get_group_for(ENV["OPENID"])`
 
-  * 修改分组名:
+* 修改分组名:
 
-    `group = $client.update_group_name(ENV["OPENID"], "new_group_name")`
+  `group = $client.update_group_name(ENV["OPENID"], "new_group_name")`
 
-  * 移动用户分组:
+* 移动用户分组:
 
-    `group = $client.update_group_for_openid(ENV["OPENID"], "to_groupid")`
+  `group = $client.update_group_for_openid(ENV["OPENID"], "to_groupid")`
 
 ### 自定义菜单
 
