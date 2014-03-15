@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 module WeixinAuthorize
 
   class Client
@@ -29,15 +28,15 @@ module WeixinAuthorize
 
     # authenticate access_token
     def authenticate
-      hash_infos        = JSON.parse(RestClient.get(authenticate_url))
+      hash_infos        = http_get_without_token("/token", authenticate_options)
       self.access_token = hash_infos["access_token"]
       self.expired_at   = Time.now.to_i + hash_infos["expires_in"]
     end
 
     private
 
-      def authenticate_url
-        "#{endpoint}/token?grant_type=client_credential&appid=#{app_id}&secret=#{app_secret}"
+      def authenticate_options
+        {grant_type: "client_credential", appid: app_id, secret: app_secret}
       end
 
       def endpoint
@@ -45,7 +44,23 @@ module WeixinAuthorize
       end
 
       def access_token_param
-        "access_token=#{get_access_token}"
+        {access_token: get_access_token}
+      end
+
+      def http_get_without_token(url, options={})
+        get_api_url = endpoint + url
+        JSON.parse(RestClient.get(get_api_url, :params => options))
+      end
+
+      def http_get(url, options={})
+        options = options.merge(access_token_param)
+        http_get_without_token(url, options)
+      end
+
+      # Refactor
+      def http_post(url, options={})
+        post_api_url = endpoint + url + "?access_token=#{get_access_token}"
+        JSON.parse(RestClient.post(post_api_url ,options))
       end
 
   end
