@@ -4,15 +4,15 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'weixin_authorize'
+  gem 'weixin_authorize'
 
 And then execute:
 
-    $ bundle
+  $ bundle
 
 Or install it yourself as:
 
-    $ gem install weixin_authorize
+  $ gem install weixin_authorize
 
 ## Usage
 
@@ -46,48 +46,64 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
 * [分组管理接口](http://mp.weixin.qq.com/wiki/index.php?title=分组管理接口)
 
-  * 创建分组
+  * 创建分组:
+
     `group = $client.create_group("test")`
-  * 查询所有分组
+
+  * 查询所有分组:
+
     `groups = $client.groups`
-  * 查询用户所在分组
+  * 查询用户所在分组:
+
     `group = $client.get_group_for(ENV["OPENID"])`
-  * 修改分组名
+
+  * 修改分组名:
+
     `group = $client.update_group_name(ENV["OPENID"], "new_group_name")`
-  * 移动用户分组
+
+  * 移动用户分组:
+
     `group = $client.update_group_for_openid(ENV["OPENID"], "to_groupid")`
 
 ### 自定义菜单
 
 * [自定义菜单创建接口](http://mp.weixin.qq.com/wiki/index.php?title=自定义菜单创建接口)
+
   `response = $client.create_menu(menu)`
 
 * [自定义菜单查询接口](http://mp.weixin.qq.com/wiki/index.php?title=自定义菜单查询接口)
+
   `response = $client.menu`
 
 * [自定义菜单删除接口](http://mp.weixin.qq.com/wiki/index.php?title=自定义菜单删除接口)
+
   `response = $client.delete_menu`
 
 ### [发送客服信息](http://mp.weixin.qq.com/wiki/index.php?title=发送客服信息)
 
-* 发送文本信息
-  `send_text_custom(to_user, content)`
+* 发送文本信息:
 
-* 发送图片信息
- `sent_image_custom(to_user, media_id)`
+  `$client.send_text_custom(to_user, content)`
 
-* 发送语音消息
-  `sent_voice_custom(to_user, media_id)`
+* 发送图片信息:
 
-* 发送视频消息
-  `sent_video_custom(to_user, media_id, options)`
+  `$client.send_image_custom(to_user, media_id)`
 
-* 发送音乐消息
- `sent_music_custom(to_user, media_id, musicurl, hqmusicurl, options)`
+* 发送语音消息:
 
-* 发送图文消息
-  `send_news_custom(to_user, *articles)`
+  `$client.send_voice_custom(to_user, media_id)`
 
+* 发送视频消息:
+
+  `$client.send_video_custom(to_user, media_id, options)`
+
+* 发送音乐消息:
+
+  `$client.send_music_custom(to_user, media_id, musicurl, hqmusicurl, options)`
+
+* 发送图文消息:
+
+  `$client.send_news_custom(to_user, *articles)`
 
 ## Contributing
 
