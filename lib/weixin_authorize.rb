@@ -1,4 +1,5 @@
 require "rest-client"
+require "multi_json"
 require "weixin_authorize/version"
 require "weixin_authorize/api/user"
 require "weixin_authorize/api/menu"
