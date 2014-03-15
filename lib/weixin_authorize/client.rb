@@ -3,12 +3,12 @@
 module WeixinAuthorize
 
   class Client
-    attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     include Api::User
     include Api::Menu
     include Api::Custom
     include Api::Groups
 
+    attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     attr_accessor :access_token
 
     def initialize(app_id="", app_secret="", expired_at=nil)
@@ -21,7 +21,7 @@ module WeixinAuthorize
     # return token
     def get_access_token
       # 如果当前token过期时间小于现在的时间，则重新获取一次
-      if @expired_at < Time.now.to_i
+      if @expired_at <= Time.now.to_i
         authenticate
       end
       @access_token
@@ -42,6 +42,10 @@ module WeixinAuthorize
 
       def endpoint
         "https://api.weixin.qq.com/cgi-bin"
+      end
+
+      def access_token_param
+        "access_token=#{get_access_token}"
       end
 
   end
