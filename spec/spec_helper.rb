@@ -16,11 +16,13 @@
 require "rspec"
 require "weixin_authorize"
 
-$client ||= WeixinAuthorize.configure do |config|
-  config.app_id     = ENV["APPID"]
-  config.app_secret = ENV["APPSECRET"]
-  config.expired_at = Time.now.to_i
-end
+# $client ||= WeixinAuthorize.configure do |config|
+#   config.app_id     = ENV["APPID"]
+#   config.app_secret = ENV["APPSECRET"]
+#   config.expired_at = Time.now.to_i
+# end
+
+$client = WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
 RSpec.configure do |config|
 # The settings below are suggested to provide a good initial experience
