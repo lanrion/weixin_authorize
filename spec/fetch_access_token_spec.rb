@@ -1,5 +1,5 @@
+# NOTE: the rspec should be test alonely.
 require "spec_helper"
-
 describe WeixinAuthorize::Client do
   describe "#get access_token" do
     it "return a access_token nil value before authenticate" do
