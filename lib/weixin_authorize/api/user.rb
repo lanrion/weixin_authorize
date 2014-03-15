@@ -13,7 +13,7 @@ module WeixinAuthorize
 
       # https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID
       # 获取关注者列表
-      def users(next_openid=nil)
+      def followers(next_openid=nil)
         users_url = "#{user_base_url}/get?#{access_token_param}&next_openid#{next_openid}"
         JSON.parse(RestClient.get(users_url))
       end

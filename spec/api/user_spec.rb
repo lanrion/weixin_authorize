@@ -7,7 +7,7 @@ describe WeixinAuthorize::Api::User do
   end
 
   it "can get followers infos" do
-    followers = $client.users
+    followers = $client.followers
     puts followers
   end
 end
