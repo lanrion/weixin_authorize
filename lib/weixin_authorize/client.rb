@@ -7,6 +7,7 @@ module WeixinAuthorize
     include Api::User
     include Api::Menu
     include Api::Custom
+    include Api::Groups
 
     attr_accessor :access_token
 
