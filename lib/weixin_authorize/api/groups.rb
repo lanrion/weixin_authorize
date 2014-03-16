@@ -9,7 +9,6 @@ module WeixinAuthorize
         create_url = "#{group_base_url}/create"
         group = MultiJson.dump({group: {name: group_name}})
         http_post(create_url, group)
-
       end
 
       # 查询所有分组
@@ -25,7 +24,6 @@ module WeixinAuthorize
         group_url = "#{group_base_url}/getid"
         openid = MultiJson.dump({openid: openid})
         http_post(group_url, openid)
-
       end
 
       # 修改分组名

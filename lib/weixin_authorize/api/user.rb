@@ -11,9 +11,9 @@ module WeixinAuthorize
         http_get(user_info_url, {openid: openid, lang: lang})
       end
 
-      # https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID
       # 获取关注者列表
-      def followers(next_openid=nil)
+      # https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID
+      def followers(next_openid="")
         followers_url = "#{user_base_url}/get"
         http_get(followers_url, {next_openid: next_openid})
       end
