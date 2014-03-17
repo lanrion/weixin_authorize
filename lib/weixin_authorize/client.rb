@@ -63,7 +63,7 @@ module WeixinAuthorize
       # Refactor
       def http_post(url, options={}, endpoint="plain")
         post_api_url = endpoint_url(endpoint) + url + "?access_token=#{get_access_token}"
-        JSON.parse(RestClient.post(post_api_url ,options))
+        JSON.parse(RestClient.post(post_api_url, options))
       end
 
       def endpoint_url(endpoint)
