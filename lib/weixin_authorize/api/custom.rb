@@ -27,7 +27,7 @@ module WeixinAuthorize
       #     }
       # }
       def send_image_custom(to_user, media_id)
-        message = default_options(to_user).merge({msgtype: image, image: {media_id: media_id}})
+        message = default_options(to_user).merge({msgtype: "image", image: {media_id: media_id}})
         http_post(custom_base_url, MultiJson.dump(message))
       end
 
@@ -41,7 +41,7 @@ module WeixinAuthorize
       #     }
       # }
       def send_voice_custom(to_user, media_id)
-        message = default_options(to_user).merge({msgtype: voice, voice: {media_id: media_id}})
+        message = default_options(to_user).merge({msgtype: "voice", voice: {media_id: media_id}})
         http_post(custom_base_url, MultiJson.dump(message))
       end
 
@@ -56,7 +56,7 @@ module WeixinAuthorize
       # }
       def send_video_custom(to_user, media_id, options={})
         video_options = {media_id: media_id}.merge(options)
-        message = default_options(to_user).merge({msgtype: video, video: video_options})
+        message = default_options(to_user).merge({msgtype: "video", video: video_options})
         http_post(custom_base_url, MultiJson.dump(message))
       end
 
@@ -76,7 +76,7 @@ module WeixinAuthorize
       def send_music_custom(to_user, media_id, musicurl, hqmusicurl, options={})
         music_options = { thumb_media_id: media_id, musicurl: musicurl,
                           hqmusicurl: hqmusicurl}.merge(options)
-        message = default_options(to_user).merge({msgtype: music, music: music_options})
+        message = default_options(to_user).merge({msgtype: "music", music: music_options})
         http_post(custom_base_url, MultiJson.dump(message))
       end
 
