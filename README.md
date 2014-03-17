@@ -1,5 +1,17 @@
 # WeixinAuthorize
 
+## 重要通知
+
+由于我的测试公众账号属于未认证，除了自定义菜单的测试是完全可以跑通的，其他高级API，均未能正常的测试，很有可能存在未知道的bug，如果有朋友有条件愿意，可以给我发邮件，我会协助你跑一遍测试，在此特别感谢。
+
+**注意:** 如果此信息一直存在，表示仍然没有跑完正常测试！！
+
+目前已知 `v1.0.0`和`v1.0.1`均存在BUG，如需使用，请在Gemfile里加入:
+
+`gem 'weixin_authorize', git: "https://github.com/lanrion/weixin_authorize", branch: "master"`
+
+我会尽快寻找机会获取有通过微信认证的服务号跑通测试。
+
 ## Installation
 
 Add this line to your application's Gemfile:
