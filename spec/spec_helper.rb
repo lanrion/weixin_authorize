@@ -15,6 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require "rspec"
 require "weixin_authorize"
+require "multi_json"
 
 # $client ||= WeixinAuthorize.configure do |config|
 #   config.app_id     = ENV["APPID"]
