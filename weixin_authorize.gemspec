@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["huaitao-deng@foxmail.com"]
   spec.description   = %q{weixin api authorize access_token}
   spec.summary       = %q{weixin api authorize access_token}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/lanrion/weixin_authorize"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -19,7 +19,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rest-client", ">= 1.6.7"
-  spec.add_runtime_dependency 'multi_json'  , "~> 1.7.2"
+  spec.add_dependency "multi_json", "~> 1.9.0"
+
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
 
