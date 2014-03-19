@@ -2,7 +2,7 @@
 
 ## 重要通知
 
-由于我的测试公众账号属于未认证，除了自定义菜单的测试是完全可以跑通的，其他高级API，均未能正常的测试，很有可能存在未知道的bug，如果有朋友有条件愿意，可以给我发邮件，我会协助你跑一遍测试，在此特别感谢。
+目前 "发送图片消息", "发送语音消息", "发送视频消息", "发送音乐消息", 还未写好测试，其他均已经正常。
 
 **注意:** 如果此信息一直存在，表示仍然没有跑完正常测试！！
 
@@ -80,7 +80,7 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
 * [自定义菜单创建接口](http://mp.weixin.qq.com/wiki/index.php?title=自定义菜单创建接口)
 
-  `response = $client.create_menu(menu)`
+  `response = $client.create_menu(menu) # Hash or Json`
 
 * [自定义菜单查询接口](http://mp.weixin.qq.com/wiki/index.php?title=自定义菜单查询接口)
 
