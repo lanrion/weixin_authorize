@@ -122,10 +122,8 @@ Go to https://github.com/lanrion/weixin_authorize/issues/2, apply a weixin sandb
 export APPID="your test account weixin app_id"
 export APPSECRET="your test account weixin appsecret"
 export OPENID="your weixin openid"
-
 ```
-
-Last, you have to ** open a new terminal tag **(Reload bash_profile)** , and run `rspec .`
+Last, you have to **open a new terminal tag (Reload bash_profile)** , and run `rspec .`
 
 ## 多用户微信营销平台的对接
 
