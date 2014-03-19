@@ -20,6 +20,7 @@ module WeixinAuthorize
       # 自定义菜单创建接口
       # https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN
       def create_menu(menu)
+        menu = MultiJson.load(menu) if menu.is_a?(String)
         create_menu_url = "#{menu_base_url}/create"
         http_post(create_menu_url, menu)
       end
