@@ -2,15 +2,13 @@
 
 ## 重要通知
 
-目前 "发送图片消息", "发送语音消息", "发送视频消息", "发送音乐消息", 还未写好测试，其他均已经正常。
+目前 "发送图片消息", "发送语音消息", "发送视频消息", "发送音乐消息" 这三部分需要结合上传文件API方能测试，其他均已经正常。
 
 **注意:** 如果此信息一直存在，表示仍然没有跑完正常测试！！
 
 目前已知 `v1.0.0`和`v1.0.1`均存在BUG，如需使用，请在Gemfile里加入:
 
 `gem 'weixin_authorize', git: "https://github.com/lanrion/weixin_authorize", branch: "master"`
-
-我会尽快寻找机会获取有通过微信认证的服务号跑通测试。
 
 ## Installation
 
@@ -115,6 +113,21 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 * 发送图文消息:
 
   `$client.send_news_custom(to_user, *articles)`
+
+## How to test
+
+Go to https://github.com/lanrion/weixin_authorize/issues/2, apply a weixin sandbox test account and follow this account, then add them to your `~/.bash_profile`
+
+```
+export APPID="your test account weixin app_id"
+export APPSECRET="your test account weixin appsecret"
+export OPENID="your weixin openid"
+
+```
+
+Last, you have to ** open a new terminal tag ** (Reload bash_profile), and run `rspec .`
+
+
 
 ##
 
