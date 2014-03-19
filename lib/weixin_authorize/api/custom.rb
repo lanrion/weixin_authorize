@@ -14,7 +14,7 @@ module WeixinAuthorize
       # }
       def send_text_custom(to_user, content)
         message = default_options(to_user).merge({text: {content: content}})
-        http_post(custom_base_url, MultiJson.dump(message))
+        http_post(custom_base_url, message)
       end
 
       # 发送图片消息
@@ -27,8 +27,8 @@ module WeixinAuthorize
       #     }
       # }
       def send_image_custom(to_user, media_id)
-        message = default_options(to_user).merge({msgtype: "image", image: {media_id: media_id}})
-        http_post(custom_base_url, MultiJson.dump(message))
+        message = default_options(to_user, "image").merge({image: {media_id: media_id}})
+        http_post(custom_base_url, message)
       end
 
       # 发送语音消息
@@ -41,8 +41,8 @@ module WeixinAuthorize
       #     }
       # }
       def send_voice_custom(to_user, media_id)
-        message = default_options(to_user).merge({msgtype: "voice", voice: {media_id: media_id}})
-        http_post(custom_base_url, MultiJson.dump(message))
+        message = default_options(to_user, "voice").merge({voice: {media_id: media_id}})
+        http_post(custom_base_url, message)
       end
 
       # 发送视频消息
@@ -56,8 +56,8 @@ module WeixinAuthorize
       # }
       def send_video_custom(to_user, media_id, options={})
         video_options = {media_id: media_id}.merge(options)
-        message = default_options(to_user).merge({msgtype: "video", video: video_options})
-        http_post(custom_base_url, MultiJson.dump(message))
+        message = default_options(to_user, "video").merge({video: video_options})
+        http_post(custom_base_url, message)
       end
 
       # 发送音乐消息
@@ -74,10 +74,12 @@ module WeixinAuthorize
       #     }
       # }
       def send_music_custom(to_user, media_id, musicurl, hqmusicurl, options={})
-        music_options = { thumb_media_id: media_id, musicurl: musicurl,
-                          hqmusicurl: hqmusicurl}.merge(options)
-        message = default_options(to_user).merge({msgtype: "music", music: music_options})
-        http_post(custom_base_url, MultiJson.dump(message))
+        music_options = { thumb_media_id: media_id,
+                          musicurl: musicurl,
+                          hqmusicurl: hqmusicurl
+                        }.merge(options)
+        message = default_options(to_user, "music").merge({music: music_options})
+        http_post(custom_base_url, message)
       end
 
       # 发送图文消息
@@ -101,9 +103,9 @@ module WeixinAuthorize
       #         ]
       #    }
       # }
-      def send_news_custom(to_user, *articles)
-        message = default_options(to_user).merge({msgtype: "news", news: {articles: articles}})
-        http_post(custom_base_url, MultiJson.dump(message))
+      def send_news_custom(to_user, articles=[])
+        message = default_options(to_user, "news").merge({news: {articles: articles}})
+        http_post(custom_base_url, message)
       end
 
       private
@@ -113,8 +115,8 @@ module WeixinAuthorize
           "/message/custom/send"
         end
 
-        def default_options(to_user)
-          {touser: to_user, msgtype: "text"}
+        def default_options(to_user, msgtype="text")
+          {touser: to_user, msgtype: msgtype}
         end
 
     end
