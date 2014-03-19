@@ -15,9 +15,9 @@ module WeixinAuthorize
     # @client = WeixinAuthorize::Client.new(appid, appsecret, expired_at, access_token)
     # 获取access_token，则仍然是：@client.get_access_token 来获取
     def initialize(app_id="", app_secret="", expired_at=nil, access_token=nil)
-      @app_id     = app_id
-      @app_secret = app_secret
-      @expired_at = (expired_at.to_i || Time.now.to_i)
+      @app_id       = app_id
+      @app_secret   = app_secret
+      @expired_at   = (expired_at.to_i || Time.now.to_i)
       @access_token = access_token
       yield self if block_given?
     end
@@ -63,6 +63,7 @@ module WeixinAuthorize
       # Refactor
       def http_post(url, options={}, endpoint="plain")
         post_api_url = endpoint_url(endpoint) + url + "?access_token=#{get_access_token}"
+        options      = MultiJson.dump(options) # to json
         JSON.parse(RestClient.post(post_api_url, options))
       end
 
