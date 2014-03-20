@@ -1,20 +1,14 @@
 # WeixinAuthorize
 
-## 重要通知
-
-目前 "发送图片消息", "发送语音消息", "发送视频消息", "发送音乐消息" 这三部分需要结合上传文件API方能测试，其他均已经正常。
-
-**注意:** 如果此信息一直存在，表示仍然没有跑完正常测试！！
-
-目前已知 `v1.0.0`和`v1.0.1`均存在BUG，如需使用，请在Gemfile里加入:
-
-`gem 'weixin_authorize', git: "https://github.com/lanrion/weixin_authorize", branch: "master"`
-
 ## Installation
 
 Add this line to your application's Gemfile:
 
   `gem 'weixin_authorize'`
+
+  Or
+
+  `gem 'weixin_authorize', git: "https://github.com/lanrion/weixin_authorize.git"
 
 And then execute:
 
