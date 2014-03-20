@@ -8,7 +8,7 @@ Add this line to your application's Gemfile:
 
   Or
 
-  `gem 'weixin_authorize', git: "https://github.com/lanrion/weixin_authorize.git"
+  `gem 'weixin_authorize', git: "https://github.com/lanrion/weixin_authorize.git"`
 
 And then execute:
 
