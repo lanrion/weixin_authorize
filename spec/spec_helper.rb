@@ -23,7 +23,7 @@ require "pry-rails"
 
 redis = Redis.new(:host => "127.0.0.1",:port => "6379")
 
-redis_with_ns = Redis::Namespace.new("your_app_name:weixin_authorize", :redis => redis)
+redis_with_ns = Redis::Namespace.new("weixin:weixin_authorize", :redis => redis)
 WeixinAuthorize.configure do |config|
   config.redis = redis_with_ns
 end
