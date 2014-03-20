@@ -25,18 +25,15 @@ Or install it yourself as:
 ```ruby
 
 $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
-
 ```
 
-If you use ** Redis ** to store your access_token, you can also specify the `key`:
+If you use [Redis](http://redis.io) to store your access_token, you can also specify the `key`:
 
 ```ruby
-
 $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"], "your_store_key")
-
 ```
 
-## Configure to use ** Redis ** to store your access_token (Recommend)
+## Configure to use Redis to store your access_token (Recommend)
 
 * Create file in: `config/initializers/weixin_authorize.rb`
 
@@ -54,7 +51,6 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"], "your_st
     WeixinAuthorize.configure do |config|
       config.redis = redis
     end
-
     ```
 
 ### 获取用户管理信息
