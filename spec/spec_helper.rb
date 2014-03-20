@@ -16,7 +16,17 @@
 require "rspec"
 require "weixin_authorize"
 require "multi_json"
+require "redis"
+require "redis-namespace"
 
+require "pry-rails"
+
+redis = Redis.new(:host => "127.0.0.1",:port => "6379")
+
+redis_with_ns = Redis::Namespace.new("your_app_name:weixin_authorize", :redis => redis)
+WeixinAuthorize.configure do |config|
+  config.redis = redis_with_ns
+end
 
 $client = WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 

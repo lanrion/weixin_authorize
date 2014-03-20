@@ -1,4 +1,6 @@
 # encoding: utf-8
+require "redis"
+
 module WeixinAuthorize
 
   class Client
