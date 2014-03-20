@@ -39,7 +39,6 @@ module WeixinAuthorize
       if is_weixin_redis_blank?
         http_get_access_token
       else
-        puts "authenticate_with_redis"
         authenticate_with_redis
       end
     end
