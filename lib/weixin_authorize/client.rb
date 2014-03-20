@@ -20,27 +20,32 @@ module WeixinAuthorize
     def initialize(app_id, app_secret, redis_key=nil)
       @app_id     = app_id
       @app_secret = app_secret
-      @expired_at = (expired_at.to_i || Time.now.to_i)
+      @expired_at = Time.now.to_i
       @redis_key  = (redis_key || "weixin_" + app_id)
     end
 
     # return token
     def get_access_token
       authenticate if token_expired?
+      if !is_weixin_redis_blank?
+        self.access_token = weixin_redis.hget(redis_key, "access_token")
+        self.expired_at   = weixin_redis.hget(redis_key, "expired_at")
+      end
       @access_token
     end
 
     # authenticate access_token
     def authenticate
-      if weixin_redis.nil?
+      if is_weixin_redis_blank?
         http_get_access_token
       else
+        puts "authenticate_with_redis"
         authenticate_with_redis
       end
     end
 
     def token_expired?
-      if weixin_redis.nil?
+      if is_weixin_redis_blank?
         # 如果当前token过期时间小于现在的时间，则重新获取一次
         @expired_at <= Time.now.to_i
       else
@@ -51,14 +56,9 @@ module WeixinAuthorize
     private
 
       def authenticate_with_redis
-        if token_expired?
-          http_get_access_token
-          weixin_redis.hmset(redis_key, :access_token, access_token, :expired_at, expired_at)
-          weixin_redis.expireat(redis_key, expired_at.to_i-10) # 提前10秒超时
-        else
-          self.access_token = weixin_redis.hget(redis_key, "access_token")
-          self.expired_at   = weixin_redis.hget(redis_key, "expired_at")
-        end
+        http_get_access_token
+        weixin_redis.hmset(redis_key, :access_token, access_token, :expired_at, expired_at)
+        weixin_redis.expireat(redis_key, expired_at.to_i-10) # 提前10秒超时
       end
 
       def http_get_access_token
@@ -107,6 +107,10 @@ module WeixinAuthorize
       def weixin_redis
         return nil if WeixinAuthorize.config.nil?
         @redis ||= WeixinAuthorize.config.redis
+      end
+
+      def is_weixin_redis_blank?
+        weixin_redis.nil?
       end
 
   end
