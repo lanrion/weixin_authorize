@@ -28,11 +28,20 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
 ```
 
-## Configure
+If you use ** Redis ** to store your access_token, you can also specify the `key`:
 
-* Create file in: config/initializers/weixin_authorize.rb
+```ruby
+
+$client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"], "your_store_key")
+
+```
+
+## Configure to use ** Redis ** to store your access_token (Recommend)
+
+* Create file in: `config/initializers/weixin_authorize.rb`
 
     ```ruby
+
     require "redis"
     require "redis-namespace"
     require "weixin_authorize"
@@ -45,6 +54,7 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
     WeixinAuthorize.configure do |config|
       config.redis = redis
     end
+
     ```
 
 ### 获取用户管理信息
@@ -56,7 +66,6 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 * [获取关注者列表](http://mp.weixin.qq.com/wiki/index.php?title=获取关注者列表)
 
   `followers = $client.followers`
-
 
 ### [分组管理接口](http://mp.weixin.qq.com/wiki/index.php?title=分组管理接口)
 
@@ -130,9 +139,6 @@ export OPENID="your weixin openid"
 ```
 Last, you have to **open a new terminal tag (Reload bash_profile)** , and run `rspec .`
 
-## 多用户微信营销平台的对接
-
-> 对于多用户微信营销平台的对接，需要把每次的expired_at, access_token保存在Redis中,每次使用，则可以从Redis中获取expired_at和access_token, 即 `@client = WeixinAuthorize::Client.new(appid, appsecret, expired_at, access_token)`, 获取access_token，则仍然是：`@client.get_access_token`来获取.
 
 ## Contributing
 
