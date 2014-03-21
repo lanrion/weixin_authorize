@@ -29,7 +29,7 @@ Or install it yourself as:
 $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 ```
 
-## Option: use [Redis](http://redis.io) to store your access_token (Recommend)
+### Option: use [Redis](http://redis.io) to store your access_token (Recommend)
 
   **If you don't use Redis, it will send a request to get a new access_token everytime!**
 
@@ -60,7 +60,7 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
   $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"], "your_store_key")
   ```
-  **Note: ** `your_store_key` should be unique for every account!
+  **Note:** `your_store_key` should be unique for every account!
 
 ### 获取用户管理信息
 
