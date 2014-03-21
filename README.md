@@ -42,12 +42,18 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"], "your_st
     require "redis"
     require "redis-namespace"
     require "weixin_authorize"
+
     # don't forget change namespace
-    redis = Redis.new(:host => "127.0.0.1",:port => "6379")
-    # We suggest you use a special db in Redis, when you need to clear all data, you can use flushdb command to clear them.
-    redis.select(3)
+    namespace = "your_app_name_weixin:weixin_authorize"
+    redis = Redis.new(:host => "127.0.0.1",:port => "6379", :db => 15)
+
+    # Delete the current namespace keys when restart everytime.
+    exist_keys = redis.keys("#{namespace}:*")
+    exist_keys.each{|key|redis.del(key)}
+
     # Give a special namespace as prefix for Redis key, when your have more than one project used weixin_authorize, this config will make them work fine.
-    redis = Redis::Namespace.new("your_app_name:weixin_authorize", :redis => redis)
+    redis = Redis::Namespace.new("#{namespace}", :redis => redis)
+
     WeixinAuthorize.configure do |config|
       config.redis = redis
     end
