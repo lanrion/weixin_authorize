@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "redis"
-
+require 'digest'
 module WeixinAuthorize
 
   class Client
@@ -21,7 +21,7 @@ module WeixinAuthorize
       @app_id     = app_id
       @app_secret = app_secret
       @expired_at = Time.now.to_i
-      @redis_key  = (redis_key || "weixin_" + app_id)
+      @redis_key  = security_redis_key((redis_key || "weixin_" + app_id))
     end
 
     # return token
@@ -110,6 +110,10 @@ module WeixinAuthorize
 
       def is_weixin_redis_blank?
         weixin_redis.nil?
+      end
+
+      def security_redis_key(key)
+        Digest::MD5.hexdigest(key.to_s).upcase
       end
 
   end
