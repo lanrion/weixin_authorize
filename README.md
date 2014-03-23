@@ -1,5 +1,7 @@
 # WeixinAuthorize
 
+[![Gem Version](https://badge.fury.io/rb/weixin_authorize.png)](http://badge.fury.io/rb/weixin_authorize)
+
 Support using [Redis](http://redis.io) to store `access_token`
 
 ## Installation
