@@ -35,26 +35,35 @@ $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 
   **If you don't use Redis, it will send a request to get a new access_token everytime!**
 
+* Added `redis-namespace` to you `Gemfile`
+
+```ruby
+# Adds a Redis::Namespace class which can be used to namespace calls to Redis. This is useful when using a single instance of Redis with multiple, different applications.
+# http://github.com/resque/redis-namespace
+gem "redis-namespace", "~> 1.4.1"
+
+```
+
 * Create file in: `config/initializers/weixin_authorize.rb`
 
-  ```ruby
+```ruby
 
-  # don't forget change namespace
-  namespace = "app_name_weixin:weixin_authorize"
-  redis = Redis.new(:host => "127.0.0.1", :port => "6379", :db => 15)
+# don't forget change namespace
+namespace = "app_name_weixin:weixin_authorize"
+redis = Redis.new(:host => "127.0.0.1", :port => "6379", :db => 15)
 
-  # cleanup keys in the current namespace when restart server everytime.
-  exist_keys = redis.keys("#{namespace}:*")
-  exist_keys.each{|key|redis.del(key)}
+# cleanup keys in the current namespace when restart server everytime.
+exist_keys = redis.keys("#{namespace}:*")
+exist_keys.each{|key|redis.del(key)}
 
-  # Give a special namespace as prefix for Redis key, when your have more than one project used weixin_authorize, this config will make them work fine.
-  redis = Redis::Namespace.new("#{namespace}", :redis => redis)
+# Give a special namespace as prefix for Redis key, when your have more than one project used weixin_authorize, this config will make them work fine.
+redis = Redis::Namespace.new("#{namespace}", :redis => redis)
 
-  WeixinAuthorize.configure do |config|
-    config.redis = redis
-  end
+WeixinAuthorize.configure do |config|
+  config.redis = redis
+end
 
-  ```
+```
 
 * You can also specify the `key`, but it is optionly.
 
