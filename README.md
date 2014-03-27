@@ -28,7 +28,11 @@ Or install it yourself as:
 
 ```ruby
 
+# new a client
 $client ||= WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
+
+# valid app_id and app_secret
+$client.is_valid? # return true or false
 ```
 
 ### Option: use [Redis](http://redis.io) to store your access_token (Recommend)
