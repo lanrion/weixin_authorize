@@ -34,15 +34,6 @@ module WeixinAuthorize
       @access_token
     end
 
-    # authenticate access_token
-    def authenticate
-      if is_weixin_redis_blank?
-        set_access_token_for_client
-      else
-        authenticate_with_redis
-      end
-    end
-
     # 检查appid和app_secret是否有效。
     def is_valid?
       valid_result = http_get_access_token
@@ -63,6 +54,15 @@ module WeixinAuthorize
     end
 
     private
+
+      # authenticate access_token
+      def authenticate
+        if is_weixin_redis_blank?
+          set_access_token_for_client
+        else
+          authenticate_with_redis
+        end
+      end
 
       def authenticate_with_redis
         set_access_token_for_client
