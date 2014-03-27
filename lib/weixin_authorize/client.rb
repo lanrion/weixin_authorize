@@ -37,10 +37,20 @@ module WeixinAuthorize
     # authenticate access_token
     def authenticate
       if is_weixin_redis_blank?
-        http_get_access_token
+        set_access_token_for_client
       else
         authenticate_with_redis
       end
+    end
+
+    # 检查appid和app_secret是否有效。
+    def is_valid?
+      valid_result = http_get_access_token
+      if valid_result.keys.include?("access_token")
+        set_access_token_for_client(valid_result)
+        return true
+      end
+      false
     end
 
     def token_expired?
@@ -55,15 +65,20 @@ module WeixinAuthorize
     private
 
       def authenticate_with_redis
-        http_get_access_token
+        set_access_token_for_client
         weixin_redis.hmset(redis_key, :access_token, access_token, :expired_at, expired_at)
         weixin_redis.expireat(redis_key, expired_at.to_i-10) # 提前10秒超时
       end
 
+      def set_access_token_for_client(access_token_infos=nil)
+        token_infos = access_token_infos || http_get_access_token
+        self.access_token = token_infos["access_token"]
+        self.expired_at   = Time.now.to_i + token_infos["expires_in"]
+      end
+
       def http_get_access_token
-        hash_infos        = http_get_without_token("/token", authenticate_options)
-        self.access_token = hash_infos["access_token"]
-        self.expired_at   = Time.now.to_i + hash_infos["expires_in"]
+        hash_infos = http_get_without_token("/token", authenticate_options)
+        hash_infos
       end
 
       def authenticate_options
