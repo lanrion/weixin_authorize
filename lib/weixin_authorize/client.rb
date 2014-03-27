@@ -57,6 +57,7 @@ module WeixinAuthorize
 
       # authenticate access_token
       def authenticate
+        raise "APPID or APPSECRET is invalid" if !is_valid?
         if is_weixin_redis_blank?
           set_access_token_for_client
         else
