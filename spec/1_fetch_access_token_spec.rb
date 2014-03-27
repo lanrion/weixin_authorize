@@ -6,9 +6,9 @@ describe WeixinAuthorize::Client do
       expect($client.access_token).to eq(nil)
     end
 
-    it "return access_token after authenticate" do
-      $client.authenticate
-      expect($client.access_token).not_to eq(nil)
+    it "appid and appsecret shoud be valid" do
+      valid_info = $client.is_valid?
+      expect(valid_info).to eq(true)
     end
 
     it "return the same access_token in the same thing twice" do
