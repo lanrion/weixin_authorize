@@ -17,5 +17,11 @@ describe WeixinAuthorize::Client do
       access_token_2 = $client.get_access_token
       expect(access_token_1).to eq(access_token_2)
     end
+
+    it "return errorcode and errormsg when appid or appsecret is invalid" do
+      $client_1   = WeixinAuthorize::Client.new("appid", "app_secret")
+      valid_info = $client_1.is_valid?
+      expect(valid_info).to eq(false)
+    end
   end
 end
