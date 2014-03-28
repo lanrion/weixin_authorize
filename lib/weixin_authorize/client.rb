@@ -9,6 +9,7 @@ module WeixinAuthorize
     include Api::Custom
     include Api::Groups
     include Api::Qrcode
+    include Api::Media
 
     attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     attr_accessor :access_token, :redis_key
