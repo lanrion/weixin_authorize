@@ -3,7 +3,7 @@ require "spec_helper"
 describe WeixinAuthorize::Api::Media do
 
   let(:image_path) do
-    "#{File.dirname(__FILE__)}/medias/dlogo.png"
+    "#{File.dirname(__FILE__)}/medias/ruby-logo.jpg"
   end
 
   let(:image_file) do
