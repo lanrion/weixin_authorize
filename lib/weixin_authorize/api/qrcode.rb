@@ -12,7 +12,7 @@ module WeixinAuthorize
         http_post(post_url, qrcode_infos)
       end
 
-      # 临时二维码
+      # 永久二维码
       def create_qr_limit_scene(scene_id)
         post_url = "#{qrcode_base_url}/create"
         qrcode_infos = {action_name: "QR_LIMIT_SCENE"}
