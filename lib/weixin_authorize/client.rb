@@ -74,7 +74,7 @@ module WeixinAuthorize
       def set_access_token_for_client(access_token_infos=nil)
         token_infos = access_token_infos || http_get_access_token
         self.access_token = token_infos["access_token"]
-        self.expired_at   = Time.now.to_i + token_infos["expires_in"]
+        self.expired_at   = Time.now.to_i + token_infos["expires_in"].to_i
       end
 
       def http_get_access_token
