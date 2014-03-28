@@ -13,11 +13,6 @@ module WeixinAuthorize
     attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     attr_accessor :access_token, :redis_key
 
-    # 对于多用户微信营销平台的对接，需要把每次的expired_at, access_token保存在Redis中
-    # 每次使用，则可以从Redis中获取expired_at和access_token，即
-    # @client = WeixinAuthorize::Client.new(appid, appsecret)
-    # 如果使用存在多个公众账号，请使用 务必传递: redis_key
-    # 获取access_token，则仍然是：@client.get_access_token 来获取
     def initialize(app_id, app_secret, redis_key=nil)
       @app_id     = app_id
       @app_secret = app_secret
