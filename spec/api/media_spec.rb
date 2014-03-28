@@ -15,18 +15,11 @@ describe WeixinAuthorize::Api::Media do
     expect(response.keys).to eq(["type", "media_id", "created_at"])
   end
 
-  it "#download_media" do
-    image = $client.upload_media(image_file, "image")
-    media_id = image["media_id"]
-    response = $client.download_media(media_id)
-    binding.pry
-    expect(response.raw_headers.keys).to eq(["server",
-                                             "date",
-                                             "content-type",
-                                             "connection",
-                                             "content-disposition",
-                                             "cache-control",
-                                             "content-length"])
-  end
+  # it "#download_media_url" do
+  #   image = $client.upload_media(image_file, "image")
+  #   media_id = image["media_id"]
+  #   response = $client.download_media_url(media_id)
+  #   response
+  # end
 
 end

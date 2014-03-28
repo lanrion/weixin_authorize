@@ -13,11 +13,14 @@ module WeixinAuthorize
         http_upload(upload_media_url, {media: file, media_type: type})
       end
 
-
+      # 目前仅仅把下载链接返回给第三方开发者，由第三方开发者处理下载
+      # php重新写入文件方式：
       # http://www.cnblogs.com/txw1958/p/weixin80-upload-download-media-file.html
-      def download_media(media_id)
-        download_media_url = "#{media_base_url}/get"
-        http_download(download_media_url, {media_id: media_id})
+      def download_media_url(media_id)
+        download_media_url = file_endpoint + "#{media_base_url}/get"
+        download_media_url += "?access_token=#{get_access_token}"
+        download_media_url += "&media_id=#{media_id}"
+        download_media_url
       end
 
       private
@@ -32,12 +35,6 @@ module WeixinAuthorize
           upload_url += "?access_token=#{get_access_token}"
           upload_url += "&type=#{media_type}"
           JSON.parse(RestClient.post(upload_url, options))
-        end
-
-        def http_download(url, options={})
-          options = options.merge(access_token_param)
-          download_url = file_endpoint + url
-          RestClient.get(download_url, :params => options)
         end
 
     end
