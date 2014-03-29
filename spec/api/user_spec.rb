@@ -7,7 +7,16 @@ describe WeixinAuthorize::Api::User do
   end
 
   it "can get followers infos" do
+    valid_info = $client.is_valid?
+    expect(valid_info).to eq(true)
     followers = $client.followers
     expect(followers.keys).to eq(["total", "count", "data", "next_openid"])
+    puts valid_info
+    
+    valid_info = $client.is_valid?
+    expect(valid_info).to eq(true)
+    followers = $client.followers
+    expect(followers.keys).to eq(["total", "count", "data", "next_openid"])
+    puts valid_info
   end
 end

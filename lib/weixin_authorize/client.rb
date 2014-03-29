@@ -33,6 +33,8 @@ module WeixinAuthorize
 
     # 检查appid和app_secret是否有效。
     def is_valid?
+      # 重新验证，清除存储在Redis的access_token
+      weixin_redis.del(redis_key) if !is_weixin_redis_blank?
       valid_result = http_get_access_token
       if valid_result.keys.include?("access_token")
         set_access_token_for_client(valid_result)
@@ -55,15 +57,13 @@ module WeixinAuthorize
       # authenticate access_token
       def authenticate
         raise "APPID or APPSECRET is invalid" if !is_valid?
-        if is_weixin_redis_blank?
-          set_access_token_for_client
-        else
+        set_access_token_for_client
+        if !is_weixin_redis_blank?
           authenticate_with_redis
         end
       end
 
       def authenticate_with_redis
-        set_access_token_for_client
         weixin_redis.hmset(redis_key, :access_token, access_token, :expired_at, expired_at)
         weixin_redis.expireat(redis_key, expired_at.to_i-10) # 提前10秒超时
       end
