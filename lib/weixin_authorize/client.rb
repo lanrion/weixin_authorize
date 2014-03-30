@@ -13,12 +13,14 @@ module WeixinAuthorize
 
     attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     attr_accessor :access_token, :redis_key
+    attr_accessor :storage
 
     def initialize(app_id, app_secret, redis_key=nil)
       @app_id     = app_id
       @app_secret = app_secret
       @expired_at = Time.now.to_i
       @redis_key  = security_redis_key((redis_key || "weixin_" + app_id))
+      @storage    = Storage.init_with(weixin_redis || self)
     end
 
     # return token
