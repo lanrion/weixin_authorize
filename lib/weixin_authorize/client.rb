@@ -100,10 +100,11 @@ module WeixinAuthorize
       end
 
       # Refactor
-      def http_post(url, options={}, endpoint="plain")
-        post_api_url = endpoint_url(endpoint) + url + "?access_token=#{get_access_token}"
-        options      = MultiJson.dump(options) # to json
-        JSON.parse(RestClient.post(post_api_url, options))
+      def http_post(url, payload={}, headers={}, endpoint="plain")
+        post_api_url = endpoint_url(endpoint) + url
+        payload = MultiJson.dump(payload) if endpoint == "plain" # to json
+        post_params = {:params => access_token_param.merge(headers)}
+        JSON.parse(RestClient.post(post_api_url, payload, post_params))
       end
 
       def endpoint_url(endpoint)

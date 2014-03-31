@@ -19,8 +19,6 @@ require "multi_json"
 require "redis"
 require "redis-namespace"
 
-require "pry-rails"
-
 redis = Redis.new(:host => "127.0.0.1",:port => "6379")
 
 namespace = "weixin_test:weixin_authorize"
