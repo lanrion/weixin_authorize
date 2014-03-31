@@ -17,6 +17,8 @@ export OPENID="your weixin openid"
 ```
 Last, you have to **open a new terminal tag (Reload bash_profile)** , and run `rspec .`
 
+**微信API挺SB，客服消息API，如果出现45015（回复时间超过限制），那么需要取消关注测试账号，然后再重新关注一次即可。另外，创建用户分组API刚开始测试的时候是OK的，后来会出现-1（系统繁忙），然后一直是这样。**
+
 ## Contributing
 
 1. Fork it
