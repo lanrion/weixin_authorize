@@ -5,6 +5,14 @@ describe WeixinAuthorize::Api::Custom do
     "text Custom message"
   end
 
+  let(:image_path) do
+    "#{File.dirname(__FILE__)}/medias/ruby-logo.jpg"
+  end
+
+  let(:image_file) do
+    File.new(image_path)
+  end
+
   it "#send_text_custom" do
     response = $client.send_text_custom(ENV["OPENID"], text_message)
     expect(response["errcode"]).to eq(0)
@@ -28,8 +36,10 @@ describe WeixinAuthorize::Api::Custom do
   end
 
   it "#send_image_custom" do
-    pending("The test must have a media_id")
-    this_should_not_get_executed
+    image = $client.upload_media(image_file, "image")
+    media_id = image["media_id"]
+    response = $client.send_image_custom(ENV["OPENID"], media_id)
+    expect(response["errcode"]).to eq(0)
   end
 
   it "#send_video_custom" do
