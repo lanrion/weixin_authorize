@@ -3,22 +3,27 @@ module WeixinAuthorize
 
   class Storage
 
-    attr_accessor :storage
+    attr_accessor :client
 
-    def initialize(storage)
-      @storage = storage
+    def initialize(client)
+      @client = client
     end
 
-    def self.init_with(storage)
-      if storage.is_a? Client
-        ObjectStorage.new(storage)
+    def self.init_with(client)
+      if WeixinAuthorize.config.redis.nil?
+        ClientStorage.new(client)
       else
-        RedisStorage.new(storage)
+        RedisStorage.new(client)
       end
     end
 
     def valid?
-      raise NotImplementedError, "Subclasses must implement a valid? method"
+      valid_result = http_get_access_token
+      if valid_result.keys.include?("access_token")
+        set_access_token_for_client(valid_result)
+        return true
+      end
+      false
     end
 
     def token_expired?
@@ -26,44 +31,28 @@ module WeixinAuthorize
     end
 
     def authenticate
-      raise NotImplementedError, "Subclasses must implement a authenticate method"
+      raise "APPID or APPSECRET is invalid" if !valid?
+      set_access_token_for_client
     end
 
-    def get_access_token
-
-    end
-  end
-
-  class RedisStorage < Storage
-
-    def valid?
-     storage.del(storage.redis_key)
+    def access_token
+      authenticate if token_expired?
     end
 
-    def token_expired?
-      storage.hvals(redis_key).empty?
+    def set_access_token_for_client(access_token_infos=nil)
+      token_infos = access_token_infos || http_get_access_token
+      client.access_token = token_infos["access_token"]
+      client.expired_at   = Time.now.to_i + token_infos["expires_in"].to_i
     end
 
-    def authenticate
-
+    def http_get_access_token
+      WeixinAuthorize.http_get_without_token("/token", authenticate_headers)
     end
 
-  end
-
-  class ObjectStorage < Storage
-
-    def valid?
-
+    def authenticate_headers
+      {grant_type: "client_credential", appid: client.app_id, secret: client.app_secret}
     end
 
-    def token_expired?
-      # 如果当前token过期时间小于现在的时间，则重新获取一次
-      stoage.expired_at <= Time.now.to_i
-    end
-
-    def authenticate
-
-    end
   end
 
 end
