@@ -11,18 +11,18 @@ module WeixinAuthorize
 
     def http_get_without_token(url, headers={}, endpoint="plain")
       get_api_url = endpoint_url(endpoint, url)
-      json_parse(RestClient.get(get_api_url, :params => headers))
+      load_json(RestClient.get(get_api_url, :params => headers))
     end
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
       payload = MultiJson.dump(payload) if endpoint == "plain" # to json
-      json_parse(RestClient.post(post_api_url, payload, headers))
+      load_json(RestClient.post(post_api_url, payload, headers))
     end
 
     # return hash
-    def json_parse(json)
-      JSON.parse(json)
+    def load_json(string)
+      JSON.parse(string)
     end
 
     def endpoint_url(endpoint, url)

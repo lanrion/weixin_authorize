@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "redis"
-require 'digest'
+require 'digest/md5'
 module WeixinAuthorize
 
   class Client
