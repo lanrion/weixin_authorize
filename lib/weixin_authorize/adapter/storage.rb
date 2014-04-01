@@ -10,7 +10,7 @@ module WeixinAuthorize
     end
 
     def self.init_with(client)
-      if WeixinAuthorize.config.redis.nil?
+      if WeixinAuthorize.weixin_redis.nil?
         ClientStorage.new(client)
       else
         RedisStorage.new(client)

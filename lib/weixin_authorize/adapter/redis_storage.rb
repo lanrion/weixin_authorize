@@ -27,7 +27,7 @@ module WeixinAuthorize
     end
 
     def weixin_redis
-      WeixinAuthorize.config.redis
+      WeixinAuthorize.weixin_redis
     end
 
   end

@@ -7,6 +7,11 @@ module WeixinAuthorize
     def configure
       yield self.config ||= Config.new
     end
+
+    def weixin_redis
+      return nil if WeixinAuthorize.config.nil?
+      @redis ||= WeixinAuthorize.config.redis
+    end
   end
 
   class Config
