@@ -19,6 +19,10 @@ require "multi_json"
 require "redis"
 require "redis-namespace"
 
+ENV["APPID"]="wx986f04063d341d04"
+ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
+ENV["OPENID"]="o9k6BuB0kydAcPTc7sPxppB1GQqA"
+
 redis = Redis.new(:host => "127.0.0.1",:port => "6379")
 
 namespace = "weixin_test:weixin_authorize"
