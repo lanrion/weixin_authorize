@@ -19,6 +19,9 @@ require "multi_json"
 require "redis"
 require "redis-namespace"
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 ENV["APPID"]="wx986f04063d341d04"
 ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
 ENV["OPENID"]="o9k6BuB0kydAcPTc7sPxppB1GQqA"
