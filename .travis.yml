@@ -2,8 +2,7 @@ language: ruby
 bundler_args: --without development
 rvm:
   - 2.0.0
-script:
-  - "rspec"
+script: bundle exec rspec spec
 services:
   - redis
 addons:

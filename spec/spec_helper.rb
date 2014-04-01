@@ -19,24 +19,22 @@ require "multi_json"
 require "redis"
 require "redis-namespace"
 
-if ENV["CI"]
-  require 'coveralls'
-  require 'simplecov'
-  require "codeclimate-test-reporter"
+require 'coveralls'
+require 'simplecov'
+require "codeclimate-test-reporter"
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-  ]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
 
-  SimpleCov.start do
-    add_filter '/spec/'
-    minimum_coverage(99)
-  end
-
-  ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
-  CodeClimate::TestReporter.start
+SimpleCov.start do
+  add_filter '/spec/'
+  minimum_coverage(99)
 end
+
+ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
+CodeClimate::TestReporter.start
 
 ENV["APPID"]="wx986f04063d341d04"
 ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
