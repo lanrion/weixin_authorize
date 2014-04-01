@@ -19,13 +19,16 @@ require "multi_json"
 require "redis"
 require "redis-namespace"
 
-require 'simplecov'
-SimpleCov.start
+if ENV["CI"]
+  require 'coveralls'
+  Coveralls.wear! do
+    add_filter "spec"
+  end
 
-require "codeclimate-test-reporter"
-ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
-CodeClimate::TestReporter.start
-
+  require "codeclimate-test-reporter"
+  ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
+  CodeClimate::TestReporter.start
+end
 
 ENV["APPID"]="wx986f04063d341d04"
 ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
