@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/weixin_authorize.png)](http://badge.fury.io/rb/weixin_authorize)
 [![Build Status](https://secure.travis-ci.org/lanrion/weixin_authorize.png?branch=master)](http://travis-ci.org/lanrion/weixin_authorize)
+[![Code Climate](https://codeclimate.com/github/lanrion/weixin_authorize.png)](https://codeclimate.com/github/lanrion/weixin_authorize)
+
 
 Support using [Redis](http://redis.io) to store `access_token`
 
