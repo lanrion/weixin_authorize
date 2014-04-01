@@ -28,10 +28,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   Coveralls::SimpleCov::Formatter
 ]
 
-SimpleCov.start do
-  add_filter '/spec/'
-  minimum_coverage(99)
-end
+SimpleCov.start
 
 ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
 CodeClimate::TestReporter.start
