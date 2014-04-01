@@ -20,6 +20,7 @@ require "redis"
 require "redis-namespace"
 
 require "codeclimate-test-reporter"
+ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
 CodeClimate::TestReporter.start
 
 ENV["APPID"]="wx986f04063d341d04"
