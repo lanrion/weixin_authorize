@@ -28,5 +28,17 @@ describe WeixinAuthorize::Client do
       $client_2 = WeixinAuthorize::Client.new("appid_2", "app_secret_2")
       expect{$client_2.get_access_token}.to raise_error(RuntimeError)
     end
+
+    it "#token_expired return the different access_token after token is expired" do
+      token_1 = $client.get_access_token
+      if WeixinAuthorize.weixin_redis.nil?
+        $client.expired_at = Time.now.to_i - 7300
+      else
+        WeixinAuthorize.weixin_redis.del($client.redis_key)
+      end
+      token_2 = $client.get_access_token
+      expect(token_1).to_not eq(token_2)
+    end
+
   end
 end
