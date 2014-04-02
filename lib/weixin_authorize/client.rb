@@ -45,7 +45,7 @@ module WeixinAuthorize
       end
 
       def http_post(url, payload={}, headers={}, endpoint="plain")
-        headers = {:params => access_token_param.merge(headers)}
+        headers = access_token_param.merge(headers)
         WeixinAuthorize.http_post_without_token(url, payload, headers, endpoint)
       end
 

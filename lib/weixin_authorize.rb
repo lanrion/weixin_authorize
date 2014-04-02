@@ -17,7 +17,7 @@ module WeixinAuthorize
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
       payload = MultiJson.dump(payload) if endpoint == "plain" # to json if invoke "plain"
-      load_json(RestClient.post(post_api_url, payload, headers))
+      load_json(RestClient.post(post_api_url, payload, :params => headers))
     end
 
     # return hash
