@@ -8,7 +8,7 @@ module WeixinAuthorize
     def initialize(code=nil, en_msg=nil, result={})
       @code   = code   || 0
       @en_msg = en_msg || "ok"
-      @cn_msg = GLOBAL_CODES[@code]
+      @cn_msg = GLOBAL_CODES[@code.to_i]
       @result = package_result(result)
     end
 
