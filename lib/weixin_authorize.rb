@@ -8,8 +8,6 @@ require "weixin_authorize/client"
 
 module WeixinAuthorize
 
-  # autoload :Message, "wechat/message"
-
   OK_MSG  = "ok".freeze
   OK_CODE = 0.freeze
 
