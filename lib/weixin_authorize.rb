@@ -2,11 +2,15 @@ require "rest-client"
 require "multi_json"
 require "weixin_authorize/config"
 require "weixin_authorize/error_handler"
-require "weixin_authorize/adapter"
 require "weixin_authorize/api"
 require "weixin_authorize/client"
 
 module WeixinAuthorize
+
+  # Storage
+  autoload(:Storage,       "weixin_authorize/adapter/storage")
+  autoload(:ClientStorage, "weixin_authorize/adapter/client_storage")
+  autoload(:RedisStorage,  "weixin_authorize/adapter/redis_storage")
 
   OK_MSG  = "ok".freeze
   OK_CODE = 0.freeze
