@@ -2,7 +2,9 @@ language: ruby
 bundler_args: --without development
 rvm:
   - 2.0.0
-script: bundle exec rspec spec
+script:
+  - CODECLIMATE_REPO_TOKEN=c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399 bundle exec rake"
+  - bundle exec rspec spec
 services:
   - redis
 addons:
