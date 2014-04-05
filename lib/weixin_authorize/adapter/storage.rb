@@ -19,8 +19,8 @@ module WeixinAuthorize
 
     def valid?
       valid_result = http_get_access_token
-      if valid_result.keys.include?("access_token")
-        set_access_token_for_client(valid_result)
+      if valid_result.code == OK_CODE
+        set_access_token_for_client(valid_result.result)
         return true
       end
       false
@@ -40,7 +40,7 @@ module WeixinAuthorize
     end
 
     def set_access_token_for_client(access_token_infos=nil)
-      token_infos = access_token_infos || http_get_access_token
+      token_infos = access_token_infos || http_get_access_token.result
       client.access_token = token_infos["access_token"]
       client.expired_at   = Time.now.to_i + token_infos["expires_in"].to_i
     end

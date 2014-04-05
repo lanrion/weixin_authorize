@@ -1,17 +1,25 @@
 require "rest-client"
 require "multi_json"
 require "weixin_authorize/config"
+require "weixin_authorize/error_handler"
 require "weixin_authorize/adapter"
 require "weixin_authorize/api"
 require "weixin_authorize/client"
 
 module WeixinAuthorize
 
+  # autoload :Message, "wechat/message"
+
+  OK_MSG  = "ok".freeze
+  OK_CODE = 0.freeze
+
   class << self
 
     def http_get_without_token(url, headers={}, endpoint="plain")
       get_api_url = endpoint_url(endpoint, url)
-      load_json(RestClient.get(get_api_url, :params => headers))
+      result = load_json(RestClient.get(get_api_url, :params => headers))
+      # binding.pry
+      result
     end
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
@@ -22,7 +30,10 @@ module WeixinAuthorize
 
     # return hash
     def load_json(string)
-      JSON.parse(string)
+      result_hash = JSON.parse(string)
+      code   = result_hash.delete("errcode")
+      en_msg = result_hash.delete("errmsg")
+      ResultHandler.new(code, en_msg, result_hash)
     end
 
     def endpoint_url(endpoint, url)
