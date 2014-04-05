@@ -39,19 +39,20 @@ ENV["APPID"]="wx986f04063d341d04"
 ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
 ENV["OPENID"]="o9k6BuB0kydAcPTc7sPxppB1GQqA"
 
-redis = Redis.new(:host => "127.0.0.1",:port => "6379")
+# Comment to test for ClientStorage
+# redis = Redis.new(:host => "127.0.0.1",:port => "6379")
 
-namespace = "weixin_test:weixin_authorize"
+# namespace = "weixin_test:weixin_authorize"
 
-# cleanup keys in the current namespace when restart server everytime.
-exist_keys = redis.keys("#{namespace}:*")
-exist_keys.each{|key|redis.del(key)}
+# # cleanup keys in the current namespace when restart server everytime.
+# exist_keys = redis.keys("#{namespace}:*")
+# exist_keys.each{|key|redis.del(key)}
 
-redis_with_ns = Redis::Namespace.new("#{namespace}", :redis => redis)
+# redis_with_ns = Redis::Namespace.new("#{namespace}", :redis => redis)
 
-WeixinAuthorize.configure do |config|
-  config.redis = redis_with_ns
-end
+# WeixinAuthorize.configure do |config|
+#   config.redis = redis_with_ns
+# end
 
 $client = WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
 RSpec.configure do |config|
