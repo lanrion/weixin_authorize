@@ -12,7 +12,7 @@ module WeixinAuthorize
       weixin_redis.hvals(client.redis_key).empty?
     end
 
-    def authenticate
+    def refresh_token
       super
       weixin_redis.hmset(client.redis_key, :access_token, client.access_token,
                          :expired_at, client.expired_at)

@@ -11,7 +11,7 @@ module WeixinAuthorize
       client.expired_at <= Time.now.to_i
     end
 
-    def authenticate
+    def refresh_token
       super
     end
 
