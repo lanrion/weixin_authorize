@@ -18,20 +18,17 @@ module WeixinAuthorize
     end
 
     def valid?
-      valid["valid"]
+      authenticate["valid"]
     end
 
-    def valid
-      valid_result = http_get_access_token
-      if valid_result.code == OK_CODE
-        set_access_token_for_client(valid_result.result)
-        return {"valid" => true, "handler" => valid_result}
+    def authenticate
+      auth_result = http_get_access_token
+      auth = false
+      if auth_result.is_ok?
+        set_access_token_for_client(auth_result.result)
+        auth = true
       end
-      {"valid" => false, "handler" => valid_result}
-    end
-
-    def token_expired?
-      raise NotImplementedError, "Subclasses must implement a token_expired? method"
+      {"valid" => auth, "handler" => auth_result}
     end
 
     def refresh_token
@@ -41,6 +38,10 @@ module WeixinAuthorize
 
     def access_token
       refresh_token if token_expired?
+    end
+
+    def token_expired?
+      raise NotImplementedError, "Subclasses must implement a token_expired? method"
     end
 
     def set_access_token_for_client(access_token_infos=nil)
@@ -60,9 +61,9 @@ module WeixinAuthorize
     private
 
       def handle_valid_exception
-        valid_result = valid
-        if !valid_result["valid"]
-          result_handler = valid_result["handler"]
+        auth_result = authenticate
+        if !auth_result["valid"]
+          result_handler = auth_result["handler"]
           raise ValidAccessTokenException, "#{result_handler.code}:#{result_handler.en_msg}(#{result_handler.cn_msg})"
         end
       end
