@@ -6,6 +6,7 @@ group :test, :development do
 end
 
 group :test do
+  gem "rake", "~> 0.9.6"
   gem 'simplecov', '~> 0.7.1', :require => false
   gem "codeclimate-test-reporter", require: nil
   gem 'coveralls', require: false
