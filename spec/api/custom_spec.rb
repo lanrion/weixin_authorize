@@ -15,7 +15,7 @@ describe WeixinAuthorize::Api::Custom do
 
   it "#send_text_custom" do
     response = $client.send_text_custom(ENV["OPENID"], text_message)
-    expect(response["errcode"]).to eq(0)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
   end
 
   it "#send_news_custom" do
@@ -32,14 +32,14 @@ describe WeixinAuthorize::Api::Custom do
                   "picurl"=> "http://www.baidu.com/img/bdlogo.gif"
                 }]
     response = $client.send_news_custom(ENV["OPENID"], articles)
-    expect(response["errcode"]).to eq(0)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
   end
 
   it "#send_image_custom" do
     image = $client.upload_media(image_file, "image")
-    media_id = image["media_id"]
+    media_id = image.result["media_id"]
     response = $client.send_image_custom(ENV["OPENID"], media_id)
-    expect(response["errcode"]).to eq(0)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
   end
 
   it "#send_video_custom" do

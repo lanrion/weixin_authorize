@@ -1,11 +1,19 @@
 require "rest-client"
 require "multi_json"
 require "weixin_authorize/config"
-require "weixin_authorize/adapter"
+require "weixin_authorize/error_handler"
 require "weixin_authorize/api"
 require "weixin_authorize/client"
 
 module WeixinAuthorize
+
+  # Storage
+  autoload(:Storage,       "weixin_authorize/adapter/storage")
+  autoload(:ClientStorage, "weixin_authorize/adapter/client_storage")
+  autoload(:RedisStorage,  "weixin_authorize/adapter/redis_storage")
+
+  OK_MSG  = "ok".freeze
+  OK_CODE = 0.freeze
 
   class << self
 
@@ -22,7 +30,10 @@ module WeixinAuthorize
 
     # return hash
     def load_json(string)
-      JSON.parse(string)
+      result_hash = JSON.parse(string)
+      code   = result_hash.delete("errcode")
+      en_msg = result_hash.delete("errmsg")
+      ResultHandler.new(code, en_msg, result_hash)
     end
 
     def endpoint_url(endpoint, url)
