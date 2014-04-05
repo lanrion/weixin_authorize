@@ -6,10 +6,10 @@ module WeixinAuthorize
     attr_accessor :code, :cn_msg, :en_msg, :result
 
     def initialize(code=nil, en_msg=nil, result={})
-      @code     = code   || 0
-      @en_msg   = en_msg || "ok"
-      @cn_msg   = GLOBAL_CODES[@code.to_s]
-      @result   = package_result(result)
+      @code   = code   || 0
+      @en_msg = en_msg || "ok"
+      @cn_msg = GLOBAL_CODES[@code]
+      @result = package_result(result)
     end
 
     private

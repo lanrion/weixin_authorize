@@ -15,9 +15,7 @@ module WeixinAuthorize
 
     def http_get_without_token(url, headers={}, endpoint="plain")
       get_api_url = endpoint_url(endpoint, url)
-      result = load_json(RestClient.get(get_api_url, :params => headers))
-      # binding.pry
-      result
+      load_json(RestClient.get(get_api_url, :params => headers))
     end
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
