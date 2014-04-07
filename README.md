@@ -7,6 +7,8 @@
 
 Support using [Redis](http://redis.io) to store `access_token`
 
+[Wiki](https://github.com/lanrion/weixin_authorize/wiki)
+
 [Getting-Started](https://github.com/lanrion/weixin_authorize/wiki/Getting-Started)
 
 ## How to test
