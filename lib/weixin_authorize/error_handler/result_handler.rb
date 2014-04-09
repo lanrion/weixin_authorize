@@ -6,8 +6,8 @@ module WeixinAuthorize
     attr_accessor :code, :cn_msg, :en_msg, :result
 
     def initialize(code, en_msg, result={})
-      @code   = code   || 0
-      @en_msg = en_msg || "ok"
+      @code   = code   || OK_CODE
+      @en_msg = en_msg || OK_MSG
       @cn_msg = GLOBAL_CODES[@code.to_i]
       @result = package_result(result)
     end
@@ -16,16 +16,20 @@ module WeixinAuthorize
     def is_ok?
       code == OK_CODE
     end
+    alias_method :ok?, :is_ok?
 
     # e.g.:
     # 45009: api freq out of limit(接口调用超过限制)
     def full_message
       "#{code}: #{en_msg}(#{cn_msg})."
     end
+    alias_method :full_messages, :full_message
 
     def full_error_message
       full_message if !is_ok?
     end
+    alias_method :full_error_messages, :full_error_message
+    alias_method :errors, :full_error_message
 
     private
 
