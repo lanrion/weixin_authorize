@@ -55,7 +55,7 @@ module WeixinAuthorize
     end
 
     def authenticate_headers
-      {grant_type: "client_credential", appid: client.app_id, secret: client.app_secret}
+      {grant_type: GRANT_TYPE, appid: client.app_id, secret: client.app_secret}
     end
 
     private
@@ -64,7 +64,7 @@ module WeixinAuthorize
         auth_result = authenticate
         if !auth_result["valid"]
           result_handler = auth_result["handler"]
-          raise ValidAccessTokenException, "#{result_handler.code}:#{result_handler.en_msg}(#{result_handler.cn_msg})"
+          raise ValidAccessTokenException, result_handler.full_error_message
         end
       end
 
