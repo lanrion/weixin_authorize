@@ -7,7 +7,11 @@
 
 Support using [Redis](http://redis.io) to store `access_token`
 
+[查看Wiki](https://github.com/lanrion/weixin_authorize/wiki)
+
 [Getting-Started](https://github.com/lanrion/weixin_authorize/wiki/Getting-Started)
+
+注意：查看Wiki或者源代码时，请切换对应的版本来查看。Master处于不断更新完善分支。
 
 ## How to test
 
