@@ -1,7 +1,7 @@
 require "rest-client"
 require "multi_json"
 require "weixin_authorize/config"
-require "weixin_authorize/error_handler"
+require "weixin_authorize/handler"
 require "weixin_authorize/api"
 require "weixin_authorize/client"
 
