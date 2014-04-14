@@ -5,6 +5,8 @@ require "weixin_authorize/handler"
 require "weixin_authorize/api"
 require "weixin_authorize/client"
 
+MultiJson.use :yajl
+
 module WeixinAuthorize
 
   # Storage
