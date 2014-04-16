@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rest-client", ">= 1.6.7"
   spec.add_dependency "multi_json", "~> 1.9.0"
   spec.add_dependency "redis", "~> 3.0.7"
+  spec.add_dependency "carrierwave", "~> 0.10.0"
+  spec.add_dependency 'rmagick', '~> 2.13.2'
 
   # A streaming JSON parsing and encoding library for Ruby (C bindings to yajl)
   # https://github.com/brianmario/yajl-ruby
