@@ -1,5 +1,7 @@
 require "rest-client"
 require "multi_json"
+require "carrierwave"
+require "weixin_authorize/carrierwave/weixin_uploader"
 require "weixin_authorize/config"
 require "weixin_authorize/handler"
 require "weixin_authorize/api"

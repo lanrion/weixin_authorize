@@ -1,14 +1,14 @@
 # encoding: utf-8
+
 module WeixinAuthorize
   module Api
     module Media
-
       # 上传多媒体文件
       # http请求方式: POST/FORM
       # http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE
       # 支持传路径或者文件类型
-      def upload_media(media, media_type)
-        file = media.is_a?(File) ? media : File.new(media)
+      def upload_media(media, media_type, remote=false)
+        file = process_file(media, remote)
         upload_media_url = "#{media_base_url}/upload"
         http_post(upload_media_url, {media: file}, {type: media_type}, "file")
       end
@@ -23,6 +23,16 @@ module WeixinAuthorize
       end
 
       private
+
+        def process_file(media, remote)
+          if remote
+            base = WeixinUploader.new
+            base.download!(media.to_s)
+            base.file.to_file
+          else
+           media.is_a?(File) ? media : File.new(media)
+          end
+        end
 
         def media_base_url
           "/media"
