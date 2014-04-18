@@ -1,11 +1,9 @@
 require "rest-client"
-require "multi_json"
+require 'yajl/json_gem'
 require "weixin_authorize/config"
 require "weixin_authorize/handler"
 require "weixin_authorize/api"
 require "weixin_authorize/client"
-
-MultiJson.use :yajl
 
 module WeixinAuthorize
 
@@ -27,7 +25,7 @@ module WeixinAuthorize
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
-      payload = MultiJson.dump(payload) if endpoint == "plain" # to json if invoke "plain"
+      payload = JSON.dump(payload) if endpoint == "plain" # to json if invoke "plain"
       load_json(RestClient.post(post_api_url, payload, :params => headers))
     end
 
