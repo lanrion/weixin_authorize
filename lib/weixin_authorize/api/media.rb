@@ -29,6 +29,7 @@ module WeixinAuthorize
             base = WeixinUploader.new
             base.download!(media.to_s)
             base.file.to_file
+            # CarrierWave.clean_cached_files!
           else
            media.is_a?(File) ? media : File.new(media)
           end

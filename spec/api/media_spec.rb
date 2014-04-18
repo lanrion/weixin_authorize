@@ -11,8 +11,8 @@ describe WeixinAuthorize::Api::Media do
   end
 
   let(:remote_image_path) do
-    # "http://l.ruby-china.org/user/large_avatar/273.png"
-    "http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ce55457e4334970a537e187df4a3baad/03087bf40ad162d99455ef4d13dfa9ec8b13632762d0ed14.jpg"
+    "http://l.ruby-china.org/user/large_avatar/273.png"
+    # "http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ce55457e4334970a537e187df4a3baad/03087bf40ad162d99455ef4d13dfa9ec8b13632762d0ed14.jpg"
   end
 
   it "can upload a image" do
