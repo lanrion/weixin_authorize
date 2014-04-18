@@ -19,9 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rest-client", ">= 1.6.7"
-  spec.add_dependency "multi_json", "~> 1.9.0"
   spec.add_dependency "redis", "~> 3.0.7"
-
   # A streaming JSON parsing and encoding library for Ruby (C bindings to yajl)
   # https://github.com/brianmario/yajl-ruby
   spec.add_dependency "yajl-ruby", "~> 1.2.0"
