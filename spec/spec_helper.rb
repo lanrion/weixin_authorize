@@ -15,7 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require "rspec"
 require "weixin_authorize"
-require "multi_json"
+require 'yajl/json_gem'
 require "redis"
 require "redis-namespace"
 
