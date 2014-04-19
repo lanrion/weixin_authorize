@@ -37,7 +37,7 @@ module WeixinAuthorize
             uploader.cache!(media_file)
           end
           file = process_media(uploader)
-          # CarrierWave.clean_cached_files!(10)
+          CarrierWave.clean_cached_files! # clear last one day cache
           file
         end
 
