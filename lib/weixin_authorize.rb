@@ -1,5 +1,10 @@
 require "rest-client"
+
+require "carrierwave"
+require "weixin_authorize/carrierwave/weixin_uploader"
+
 require 'yajl/json_gem'
+
 require "weixin_authorize/config"
 require "weixin_authorize/handler"
 require "weixin_authorize/api"

@@ -23,6 +23,8 @@ require 'coveralls'
 require 'simplecov'
 require "codeclimate-test-reporter"
 
+require "pry-rails"
+
 Coveralls.wear!
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
