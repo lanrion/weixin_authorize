@@ -22,6 +22,32 @@ module WeixinAuthorize
         download_media_url
       end
 
+      # 上传图文消息素材
+      # {
+      #    "articles": [
+      #      {
+      #        "thumb_media_id":"mwvBelOXCFZiq2OsIU-p",
+      #        "author":"xxx",
+      #        "title":"Happy Day",
+      #        "content_source_url":"www.qq.com",
+      #        "content":"content",
+      #        "digest":"digest"
+      #      },
+      #      {
+      #        "thumb_media_id":"mwvBelOXCFZiq2OsIU-p",
+      #        "author":"xxx",
+      #        "title":"Happy Day",
+      #        "content_source_url":"www.qq.com",
+      #        "content":"content",
+      #        "digest":"digest"
+      #      }
+      #    ]
+      # }
+      def upload_news(news)
+        upload_news_url = "#{media_base_url}/uploadnews"
+        http_post(upload_news_url, {articles: news})
+      end
+
       private
 
         def process_file(media)
