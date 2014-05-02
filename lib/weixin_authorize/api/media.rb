@@ -43,9 +43,29 @@ module WeixinAuthorize
       #      }
       #    ]
       # }
-      def upload_news(news)
+      # Option: author, content_source_url
+      def upload_mass_news(news=[])
         upload_news_url = "#{media_base_url}/uploadnews"
         http_post(upload_news_url, {articles: news})
+      end
+
+      # media_id: 需通过基础支持中的上传下载多媒体文件来得到
+      # https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=ACCESS_TOKEN
+
+      # return:
+      # {
+      #   "type":"video",
+      #   "media_id":"IhdaAQXuvJtGzwwc0abfXnzeezfO0NgPK6AQYShD8RQYMTtfzbLdBIQkQziv2XJc",
+      #   "created_at":1398848981
+      # }
+      def upload_mass_video(media_id, title="", desc="")
+        video_msg = {
+          "media_id"    => media_id,
+          "title"       => title,
+          "description" => desc
+        }
+
+        http_post("#{media_base_url}/uploadvideo", video_msg)
       end
 
       private
