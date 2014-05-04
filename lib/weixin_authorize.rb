@@ -54,8 +54,8 @@ module WeixinAuthorize
       "http://file.api.weixin.qq.com/cgi-bin"
     end
 
-    def mp_endpoint
-      "https://mp.weixin.qq.com/cgi-bin"
+    def mp_endpoint(url)
+      "https://mp.weixin.qq.com/cgi-bin#{url}"
     end
 
   end
