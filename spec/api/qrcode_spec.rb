@@ -19,6 +19,7 @@ describe WeixinAuthorize::Api::Qrcode do
     response = $client.create_qr_limit_scene("1234")
     qr_url = $client.qr_code_url(response.result["ticket"])
     expect(response.code).to eq(WeixinAuthorize::OK_CODE)
-    expect(qr_url).to include("mp.weixin.qq.com")
+    expect(qr_url).to match(/(\S+\.(com|net|org|edu|gov)(\/\S+)?)/)
+    # expect(qr_url).to include("mp.weixin.qq.com")
   end
 end
