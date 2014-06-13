@@ -7,7 +7,7 @@
 
 Support using [Redis](http://redis.io) to store `access_token`
 
-[查看Wiki](https://github.com/lanrion/weixin_authorize/wiki)
+[Wiki](https://github.com/lanrion/weixin_authorize/wiki)
 
 [Getting-Started](https://github.com/lanrion/weixin_authorize/wiki/Getting-Started)
 
@@ -15,16 +15,21 @@ Support using [Redis](http://redis.io) to store `access_token`
 
 ## How to test
 
-Go to https://github.com/lanrion/weixin_authorize/issues/2, apply a weixin sandbox test account and follow this account, then add them to your `~/.bash_profile`
+Go to https://github.com/lanrion/weixin_authorize/issues/2, apply a weixin sandbox test account and follow this account
+
+https://github.com/lanrion/weixin_authorize/blob/master/spec/spec_helper.rb
+
+change your infos: 
+
+```ruby
+
+ENV["APPID"]="wxe371e0960de5426a"
+ENV["APPSECRET"]="572b93d3d20aea242692a804243a141b"
+ENV["OPENID"]="oEEoyuEasxionjR5HygmEOQGwRcw"
 
 ```
-export APPID="your test account weixin app_id"
-export APPSECRET="your test account weixin appsecret"
-export OPENID="your weixin openid"
-```
-Last, you have to **open a new terminal tag (Reload bash_profile)** , and run `rspec .`
 
-**微信API挺SB，客服消息API，如果出现45015（回复时间超过限制），那么需要取消关注测试账号，然后再重新关注一次即可。另外，创建用户分组API刚开始测试的时候是OK的，后来会出现-1（系统繁忙），然后一直是这样。**
+then run `rspec .`
 
 ## Contributing
 
