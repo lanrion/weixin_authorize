@@ -22,11 +22,9 @@ https://github.com/lanrion/weixin_authorize/blob/master/spec/spec_helper.rb
 change your infos: 
 
 ```ruby
-
 ENV["APPID"]="wxe371e0960de5426a"
 ENV["APPSECRET"]="572b93d3d20aea242692a804243a141b"
 ENV["OPENID"]="oEEoyuEasxionjR5HygmEOQGwRcw"
-
 ```
 
 then run `rspec .`
