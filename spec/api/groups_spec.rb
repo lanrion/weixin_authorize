@@ -12,7 +12,7 @@ describe WeixinAuthorize::Api::Groups do
   it "create a group" do
     response = $client.create_group(group_name)
     if response.code == WeixinAuthorize::OK_CODE
-      expect(response["group"]["name"]).to eq(group_name)
+      expect(response.result["group"]["name"]).to eq(group_name)
     else
       expect(response.code).to eq(-1)
       puts "SB WEIXIN says: system error"
