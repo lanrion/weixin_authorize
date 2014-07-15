@@ -58,6 +58,10 @@ module WeixinAuthorize
       "https://mp.weixin.qq.com/cgi-bin#{url}"
     end
 
+    def open_endpoint(url)
+      "https://open.weixin.qq.com#{url}"
+    end
+
   end
 
 end
