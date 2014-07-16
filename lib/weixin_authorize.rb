@@ -47,7 +47,11 @@ module WeixinAuthorize
     end
 
     def plain_endpoint
-      "https://api.weixin.qq.com/cgi-bin"
+      "#{api_endpoint}/cgi-bin"
+    end
+
+    def api_endpoint
+      "https://api.weixin.qq.com"
     end
 
     def file_endpoint
