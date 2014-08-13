@@ -37,9 +37,10 @@ SimpleCov.start
 ENV['CODECLIMATE_REPO_TOKEN'] = "c91fecbbd9e414e7cc3ad7a7d99207145de0ac65a3368de09e8c19295343d399"
 CodeClimate::TestReporter.start
 
-ENV["APPID"]="wxe371e0960de5426a"
-ENV["APPSECRET"]="572b93d3d20aea242692a804243a141b"
-ENV["OPENID"]="oEEoyuEasxionjR5HygmEOQGwRcw"
+# If you want test, change your weixin test profile
+ENV["APPID"]="wx986f04063d341d04"
+ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
+ENV["OPENID"]="o9k6BuB0kydAcPTc7sPxppB1GQqA"
 
 # Comment to test for ClientStorage
 redis = Redis.new(:host => "127.0.0.1",:port => "6379")

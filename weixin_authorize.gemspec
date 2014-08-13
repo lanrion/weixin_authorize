@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rest-client", ">= 1.6.7"
-  spec.add_dependency "redis", "~> 3.0.7"
+  spec.add_dependency "redis", "~> 3.1.0"
 
   spec.add_dependency "carrierwave", "~> 0.10.0"
   spec.add_dependency 'mini_magick', '~> 3.7.0'
