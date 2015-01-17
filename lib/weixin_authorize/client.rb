@@ -15,7 +15,7 @@ module WeixinAuthorize
 
     attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     attr_accessor :access_token, :redis_key
-    attr_accessor :storage
+    attr_accessor :storage, :jsticket
 
     def initialize(app_id, app_secret, redis_key=nil)
       @app_id     = app_id
@@ -35,13 +35,29 @@ module WeixinAuthorize
       @storage.valid?
     end
 
+    # TODO: refactor with difference storage
+    def js_ticket
+      raise ValidAccessTokenException if !is_valid?
+      if @jsticket.nil? || @jsticket.result["expired_at"] <= Time.now.to_i
+        @jsticket ||= get_jsticket
+      end
+      @jsticket.result["ticket"]
+    end
+
     private
+
+      def get_jsticket
+        ticket = http_get("/ticket/getticket", {type: 1})
+        ticket.result["expired_at"] = ticket.result["expires_in"] + Time.now.to_i
+        ticket
+      end
 
       def access_token_param
         {access_token: get_access_token}
       end
 
       def http_get(url, headers={}, endpoint="plain")
+        puts "get jsticket" if url.include?("getticket")
         headers = headers.merge(access_token_param)
         WeixinAuthorize.http_get_without_token(url, headers, endpoint)
       end
