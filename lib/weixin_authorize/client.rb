@@ -44,6 +44,25 @@ module WeixinAuthorize
       @jsticket.result["ticket"]
     end
 
+    # 获取js sdk 签名包
+    def get_jssign_package(url)
+      timestamp = Time.now.to_i
+      noncestr = SecureRandom.hex(16)
+      string = {
+        jsapi_ticket: js_ticket,
+        noncestr: noncestr,
+        timestamp: timestamp,
+        url: url
+      }.to_param
+
+      signature = Digest::SHA1.hexdigest(string)
+      {
+        "appId"     => app_id,    "nonceStr"  => noncestr,
+        "timestamp" => timestamp, "url"       => url,
+        "signature" => signature, "rawString" => string
+      }
+    end
+
     private
 
       def get_jsticket
