@@ -48,13 +48,7 @@ module WeixinAuthorize
     def get_jssign_package(url)
       timestamp = Time.now.to_i
       noncestr = SecureRandom.hex(16)
-      string = {
-        jsapi_ticket: js_ticket,
-        noncestr: noncestr,
-        timestamp: timestamp,
-        url: url
-      }.to_param
-
+      string = "jsapi_ticket=#{js_ticket}&noncestr=#{noncestr}&timestamp=#{timestamp}&url=#{url}";
       signature = Digest::SHA1.hexdigest(string)
       {
         "appId"     => app_id,    "nonceStr"  => noncestr,
