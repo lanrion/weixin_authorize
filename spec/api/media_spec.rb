@@ -19,7 +19,7 @@ describe WeixinAuthorize::Api::Media do
   end
 
   let(:remote_png_path) do
-    "http://l.ruby-china.org/user/large_avatar/273.png"
+    "https://ruby-china-files.b0.upaiyun.com/user/big_avatar/273.jpg"
   end
 
   let(:remote_jpg_path) do
