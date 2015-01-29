@@ -4,8 +4,13 @@ module WeixinAuthorize
     module Template
 
       # 设置所属行业
-      def set_template_industry(industry_id1, industry_id2)
-        industries = {industry_id1: industry_id1, industry_id2: industry_id2}
+      # 需要选择公众账号服务所处的2个行业，每月可更改1次所选行业；
+      # 初始化行业时，传入两个，每月更改时，传入一个即可。
+      def set_template_industry(industry_id1, industry_id2="")
+        industries = {industry_id1: industry_id1}
+        if industry_id2 != ""
+          industries.merge!({industry_id2: industry_id2})
+        end
         http_post("/template/api_set_industry", industries)
       end
 
