@@ -17,9 +17,9 @@ module WeixinAuthorize
   autoload(:ClientStorage, "weixin_authorize/adapter/client_storage")
   autoload(:RedisStorage,  "weixin_authorize/adapter/redis_storage")
 
-  OK_MSG     = "ok".freeze
-  OK_CODE    = 0.freeze
-  GRANT_TYPE = "client_credential".freeze
+  OK_MSG  = "ok"
+  OK_CODE = 0
+  GRANT_TYPE = "client_credential"
 
   class << self
 
