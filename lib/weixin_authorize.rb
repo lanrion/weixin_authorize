@@ -8,6 +8,7 @@ require 'yajl/json_gem'
 require "weixin_authorize/config"
 require "weixin_authorize/handler"
 require "weixin_authorize/api"
+require "weixin_authorize/wx_pay"
 require "weixin_authorize/client"
 
 module WeixinAuthorize

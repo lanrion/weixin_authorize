@@ -12,10 +12,11 @@ module WeixinAuthorize
     include Api::Media
     include Api::Oauth
     include Api::Template
+    include Api::Payment
 
     attr_accessor :app_id, :app_secret, :expired_at # Time.now + expires_in
     attr_accessor :access_token, :redis_key
-    attr_accessor :storage, :jsticket
+    attr_accessor :storage, :jsticket, :pay_key
 
     def initialize(app_id, app_secret, redis_key=nil)
       @app_id     = app_id
@@ -78,6 +79,10 @@ module WeixinAuthorize
       def http_post(url, payload={}, headers={}, endpoint="plain")
         headers = access_token_param.merge(headers)
         WeixinAuthorize.http_post_without_token(url, payload, headers, endpoint)
+      end
+
+      def pay_post(url, payload)
+        WxPay.http_post_without_token(url, payload)
       end
 
       def security_redis_key(key)
