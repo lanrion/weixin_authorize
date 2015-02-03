@@ -6,7 +6,7 @@ module WeixinAuthorize
       def unifiedorder(params)
         pay_post(
           "pay/unifiedorder",
-          WxPay.make_payload(app_secret, params)
+          WxPay.make_payload(pay_key, params)
         )
       end
 
