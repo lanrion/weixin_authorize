@@ -33,9 +33,6 @@ module WeixinAuthorize
         WeixinAuthorize.http_get_without_token("/sns/userinfo?access_token=#{oauth_token}&openid=#{openid}&lang=#{lang}", {}, "api")
       end
 
-      private
-
-
     end
   end
 end
