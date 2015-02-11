@@ -39,6 +39,7 @@ module WeixinAuthorize
       # result.result[:ok] #=> true
       # result.result['ok'] #=> true
       def package_result(result)
+        return result if !result.is_a?(Hash)
         if defined?(Rails)
           ActiveSupport::HashWithIndifferentAccess.new(result)
         else

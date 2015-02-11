@@ -20,4 +20,9 @@ describe WeixinAuthorize::Api::User do
     expect(followers.code).to eq(WeixinAuthorize::OK_CODE)
     expect(followers.result.keys).to eq(["total", "count", "data", "next_openid"])
   end
+
+  it "can update user remark" do
+    user_info = $client.update_remark(ENV["OPENID"], "dylan")
+    expect(user_info.code).to eq(WeixinAuthorize::OK_CODE)
+  end
 end
