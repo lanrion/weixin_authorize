@@ -1,4 +1,3 @@
-require "spec_helper"
 describe WeixinAuthorize::Api::Groups do
 
   let(:group_name) do

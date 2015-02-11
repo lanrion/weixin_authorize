@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe WeixinAuthorize::Api::Custom do
   let(:text_message) do
     "text Custom message"
