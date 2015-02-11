@@ -9,12 +9,18 @@ module WeixinAuthorize
     end
 
     def weixin_redis
-      return nil if WeixinAuthorize.config.nil?
-      @redis ||= WeixinAuthorize.config.redis
+      return nil if config.nil?
+      @redis ||= config.redis
+    end
+
+    # 可选配置: RestClient timeout, etc.
+    # key 必须是符号
+    def rest_client_options
+      config.rest_client_options || {timeout: 2, open_timeout: 3, verify_ssl: true}
     end
   end
 
   class Config
-    attr_accessor :redis
+    attr_accessor :redis, :rest_client_options
   end
 end

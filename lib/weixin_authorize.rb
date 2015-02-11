@@ -31,13 +31,17 @@ module WeixinAuthorize
 
     def http_get_without_token(url, headers={}, endpoint="plain")
       get_api_url = endpoint_url(endpoint, url)
-      load_json(RestClient.get(get_api_url, :params => headers))
+      load_json(resource(get_api_url).get(params: headers))
     end
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
       payload = JSON.dump(payload) if endpoint == "plain" # to json if invoke "plain"
-      load_json(RestClient.post(post_api_url, payload, :params => headers))
+      load_json(resource(post_api_url).post(payload, params: headers))
+    end
+
+    def resource(url)
+      RestClient::Resource.new(url, rest_client_options)
     end
 
     # return hash
