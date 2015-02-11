@@ -16,7 +16,10 @@ module WeixinAuthorize
     # 可选配置: RestClient timeout, etc.
     # key 必须是符号
     def rest_client_options
-      config.rest_client_options || {timeout: 2, open_timeout: 3, verify_ssl: true}
+      if config.nil?
+        return {timeout: 2, open_timeout: 3, verify_ssl: true}
+      end
+      config.rest_client_options
     end
   end
 
