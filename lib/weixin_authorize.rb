@@ -1,10 +1,8 @@
 require "rest-client"
-
 require "carrierwave"
-require "weixin_authorize/carrierwave/weixin_uploader"
-
 require 'yajl/json_gem'
 
+require "weixin_authorize/carrierwave/weixin_uploader"
 require "weixin_authorize/config"
 require "weixin_authorize/handler"
 require "weixin_authorize/api"
@@ -12,10 +10,18 @@ require "weixin_authorize/client"
 
 module WeixinAuthorize
 
-  # Storage
-  autoload(:Storage,       "weixin_authorize/adapter/storage")
-  autoload(:ClientStorage, "weixin_authorize/adapter/client_storage")
-  autoload(:RedisStorage,  "weixin_authorize/adapter/redis_storage")
+  # token store
+  module Token
+    autoload(:Store,       "weixin_authorize/token/store")
+    autoload(:ObjectStore, "weixin_authorize/token/object_store")
+    autoload(:RedisStore,  "weixin_authorize/token/redis_store")
+  end
+
+  module JsTicket
+    autoload(:Store,       "weixin_authorize/js_ticket/store")
+    autoload(:ObjectStore, "weixin_authorize/js_ticket/object_store")
+    autoload(:RedisStore,  "weixin_authorize/js_ticket/redis_store")
+  end
 
   OK_MSG  = "ok"
   OK_CODE = 0
