@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe WeixinAuthorize::Api::User do
   it "can get a weixin User info" do
     user_info = $client.user(ENV["OPENID"])

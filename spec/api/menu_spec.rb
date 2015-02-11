@@ -1,6 +1,4 @@
 # encoding: utf-8
-require "spec_helper"
-
 describe WeixinAuthorize::Api::Menu do
 
   it "can create a menu" do

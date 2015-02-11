@@ -1,10 +1,8 @@
 require "rest-client"
-
 require "carrierwave"
-require "weixin_authorize/carrierwave/weixin_uploader"
-
 require 'yajl/json_gem'
 
+require "weixin_authorize/carrierwave/weixin_uploader"
 require "weixin_authorize/config"
 require "weixin_authorize/handler"
 require "weixin_authorize/api"
@@ -12,26 +10,38 @@ require "weixin_authorize/client"
 
 module WeixinAuthorize
 
-  # Storage
-  autoload(:Storage,       "weixin_authorize/adapter/storage")
-  autoload(:ClientStorage, "weixin_authorize/adapter/client_storage")
-  autoload(:RedisStorage,  "weixin_authorize/adapter/redis_storage")
+  # token store
+  module Token
+    autoload(:Store,       "weixin_authorize/token/store")
+    autoload(:ObjectStore, "weixin_authorize/token/object_store")
+    autoload(:RedisStore,  "weixin_authorize/token/redis_store")
+  end
 
-  OK_MSG     = "ok".freeze
-  OK_CODE    = 0.freeze
-  GRANT_TYPE = "client_credential".freeze
+  module JsTicket
+    autoload(:Store,       "weixin_authorize/js_ticket/store")
+    autoload(:ObjectStore, "weixin_authorize/js_ticket/object_store")
+    autoload(:RedisStore,  "weixin_authorize/js_ticket/redis_store")
+  end
+
+  OK_MSG  = "ok"
+  OK_CODE = 0
+  GRANT_TYPE = "client_credential"
 
   class << self
 
     def http_get_without_token(url, headers={}, endpoint="plain")
       get_api_url = endpoint_url(endpoint, url)
-      load_json(RestClient.get(get_api_url, :params => headers))
+      load_json(resource(get_api_url).get(params: headers))
     end
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
       payload = JSON.dump(payload) if endpoint == "plain" # to json if invoke "plain"
-      load_json(RestClient.post(post_api_url, payload, :params => headers))
+      load_json(resource(post_api_url).post(payload, params: headers))
+    end
+
+    def resource(url)
+      RestClient::Resource.new(url, rest_client_options)
     end
 
     # return hash

@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe WeixinAuthorize::Api::Qrcode do
 
   it "#create_qr_scene" do

@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe WeixinAuthorize::Api::Media do
 
   let(:image_jpg_path) do
