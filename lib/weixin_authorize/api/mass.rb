@@ -3,7 +3,7 @@ module WeixinAuthorize
   module Api
     module Mass
 
-      MSG_TYPE = ["mpnews", "image", "text", "voice", "mpvideo"].freeze
+      MSG_TYPE = ["mpnews", "image", "text", "voice", "mpvideo"]
 
       # media_info= {"media_id" media_id}
       # https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN
@@ -21,7 +21,6 @@ module WeixinAuthorize
       def mass_with_openids(openids, media_info, msgtype="mpnews")
         openid_option = {"touser" => openids}
         media = generate_media(msgtype, media_info, openid_option)
-
         mass_url = "#{mass_base_url}/send"
         http_post(mass_url, media)
       end
@@ -30,7 +29,21 @@ module WeixinAuthorize
        # 另外，删除群发消息只能删除图文消息和视频消息，其他类型的消息一经发送，无法删除。
       def mass_delete_with_msgid(msg_id)
         mass_url = "#{mass_base_url}/delete"
-        http_post(mass_url, {"msgid" => msg_id})
+        http_post(mass_url, {"msg_id" => msg_id})
+      end
+
+      # 预览接口【订阅号与服务号认证后均可用】
+      def mass_preview(openid, media_info, msgtype="mpnews")
+        openid_option = {"touser" => openid}
+        media = generate_media(msgtype, media_info, openid_option)
+        mass_url = "#{mass_base_url}/preview"
+        http_post(mass_url, media)
+      end
+
+      # 查询群发消息发送状态【订阅号与服务号认证后均可用】
+      def mass_get_status(msg_id)
+        mass_url = "#{mass_base_url}/get"
+        http_post(mass_url, {"msg_id" => msg_id})
       end
 
       private
@@ -42,7 +55,6 @@ module WeixinAuthorize
         def generate_media(msgtype, media_info, option)
           msgtype = msgtype.to_s
           raise "#{msgtype} is a valid msgtype" if not MSG_TYPE.include?(msgtype)
-
           {
             msgtype   => convert_media_info(msgtype, media_info),
             "msgtype" => msgtype

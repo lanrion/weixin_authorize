@@ -22,7 +22,7 @@ module WeixinAuthorize
         download_media_url
       end
 
-      # 上传图文消息素材
+      # 上传图文消息素材, 主要用于群发消息接口
       # {
       #    "articles": [
       #      {
@@ -70,6 +70,10 @@ module WeixinAuthorize
 
       private
 
+        def media_base_url
+          "/media"
+        end
+
         def process_file(media)
           return media if media.is_a?(File) && jpep?(media)
 
@@ -85,10 +89,6 @@ module WeixinAuthorize
           file = process_media(uploader)
           CarrierWave.clean_cached_files! # clear last one day cache
           file
-        end
-
-        def media_base_url
-          "/media"
         end
 
         def process_media(uploader)

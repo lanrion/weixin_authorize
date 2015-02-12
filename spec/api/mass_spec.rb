@@ -45,17 +45,21 @@ describe WeixinAuthorize::Api::Mass do
   end
 
   it "#mass_with_group with mpnews" do
-    response = $client.mass_with_group("1", mass_media_id)
+    response = $client.mass_with_group("1", "mass_group_text", "text")
     expect(response.code).to eq(WeixinAuthorize::OK_CODE)
-    expect(response.result["type"]).to eq("mpnews")
-    expect(response.result.keys).to eq(["type", "msg_id", "errmsg", "errcode"])
   end
 
-  it "#mass_with_openids with mpnews" do
+  it "#mass_with_openids with mpnews and can delete message" do
     response = $client.mass_with_openids([ENV["OPENID"]], mass_media_id)
     expect(response.code).to eq(WeixinAuthorize::OK_CODE)
-    expect(response.result["type"]).to eq("mpnews")
-    expect(response.result.keys).to eq(["type", "msg_id", "errmsg", "errcode"])
+    expect(response.result.keys).to eq(["msg_id"])
+    delete_res = $client.mass_delete_with_msgid(response.result["msg_id"])
+    expect(delete_res.code).to eq(WeixinAuthorize::OK_CODE)
+  end
+
+  it "#mass_preview can preview by openid" do
+    response = $client.mass_preview(ENV["OPENID"], "mass_text", "text")
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
   end
 
 end
