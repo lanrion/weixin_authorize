@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe WeixinAuthorize::Api::User do
   it "can get a weixin User info" do
     user_info = $client.user(ENV["OPENID"])
@@ -19,5 +17,10 @@ describe WeixinAuthorize::Api::User do
     followers = $client.followers
     expect(followers.code).to eq(WeixinAuthorize::OK_CODE)
     expect(followers.result.keys).to eq(["total", "count", "data", "next_openid"])
+  end
+
+  it "can update user remark" do
+    user_info = $client.update_remark(ENV["OPENID"], "dylan")
+    expect(user_info.code).to eq(WeixinAuthorize::OK_CODE)
   end
 end

@@ -43,7 +43,7 @@ ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
 ENV["OPENID"]="o9k6BuB0kydAcPTc7sPxppB1GQqA"
 
 # Comment to test for ClientStorage
-redis = Redis.new(:host => "127.0.0.1",:port => "6379")
+redis = Redis.new(host: "127.0.0.1", port: "6379", db: 15)
 
 namespace = "weixin_test:weixin_authorize"
 
@@ -55,9 +55,11 @@ redis_with_ns = Redis::Namespace.new("#{namespace}", :redis => redis)
 
 WeixinAuthorize.configure do |config|
   config.redis = redis_with_ns
+  config.rest_client_options = {timeout: 1, open_timeout: 1, verify_ssl: true}
 end
 
 $client = WeixinAuthorize::Client.new(ENV["APPID"], ENV["APPSECRET"])
+
 RSpec.configure do |config|
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
