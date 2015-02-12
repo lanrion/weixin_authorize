@@ -11,6 +11,21 @@ Support using [Redis](http://redis.io) to store `access_token`
 
 [Getting-Started](https://github.com/lanrion/weixin_authorize/wiki/Getting-Started)
 
+[JS SDK](https://github.com/lanrion/weixin_authorize/wiki/js-sdk)
+
+## 已经完成API
+
+* 客服消息
+* 模板消息
+* 用户分组管理
+* 用户信息管理
+* Oauth 2授权
+* 二维码生成
+* 自定义菜单
+* 群发消息
+* 多媒体管理
+* JS SDK（ticket支持缓存）
+
 ## V2.0开发中： 
 https://github.com/lanrion/weixin_authorize/milestones/v2.0-dev
 
