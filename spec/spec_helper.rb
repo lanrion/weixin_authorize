@@ -41,6 +41,7 @@ CodeClimate::TestReporter.start
 ENV["APPID"]="wx986f04063d341d04"
 ENV["APPSECRET"]="1a941cd88cb4579ba98ec06b6813af03"
 ENV["OPENID"]="o9k6BuB0kydAcPTc7sPxppB1GQqA"
+ENV["TEMPLATE_ID"]="-8ooXrOK3VD3HuSS8--nH154PO9Lw2E7T-RV1uTaGLc"
 
 # Comment to test for ClientStorage
 redis = Redis.new(host: "127.0.0.1", port: "6379", db: 15)
