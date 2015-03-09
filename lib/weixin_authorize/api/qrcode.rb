@@ -13,10 +13,13 @@ module WeixinAuthorize
       end
 
       # 永久二维码
-      def create_qr_limit_scene(scene_id)
+      # options: scene_id, scene_str
+      def create_qr_limit_scene(options)
+        scene_id = options[:scene_id]
+        scene_str = options[:scene_str]
         post_url     = "#{qrcode_base_url}/create"
         qrcode_infos = {action_name: "QR_LIMIT_SCENE"}
-        qrcode_infos = qrcode_infos.merge(action_info(scene_id))
+        qrcode_infos = qrcode_infos.merge(action_info(scene_id, scene_str))
         http_post(post_url, qrcode_infos)
       end
 
@@ -31,8 +34,11 @@ module WeixinAuthorize
           "/qrcode"
         end
 
-        def action_info(scene_id)
-          {action_info: {scene: {scene_id: scene_id}}}
+        def action_info(scene_id, scene_str=nil)
+          scene_info = {}
+          scene_info[:scene_id] = scene_id
+          scene_info[:scene_str] = scene_str if !scene_str.nil?
+          {action_info: {scene: scene_info}}
         end
 
     end
