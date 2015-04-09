@@ -7,8 +7,8 @@ module WeixinAuthorize
 
       # media_info= {"media_id" media_id}
       # https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN
-      def mass_with_group(group_id, media_info, msgtype="mpnews")
-        group_option = {"filter" => {"group_id" => group_id.to_s}}
+      def mass_with_group(group_id, media_info, msgtype="mpnews", is_to_all=false)
+        group_option = {"filter" => {"group_id" => group_id.to_s, "is_to_all" => is_to_all}}
         media = generate_media(msgtype, media_info, group_option)
 
         mass_url = "#{mass_base_url}/sendall"

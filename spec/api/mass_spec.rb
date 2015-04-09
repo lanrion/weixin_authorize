@@ -49,6 +49,11 @@ describe WeixinAuthorize::Api::Mass do
     expect(response.code).to eq(WeixinAuthorize::OK_CODE)
   end
 
+  it "#mass_with_groug send to all" do
+    response = $client.mass_with_group("1", "mass_group_text_to_all", "text", true)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
+  end
+
   it "#mass_with_openids with mpnews and can delete message" do
     response = $client.mass_with_openids([ENV["OPENID"]], mass_media_id)
     expect(response.code).to eq(WeixinAuthorize::OK_CODE)
