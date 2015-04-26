@@ -19,9 +19,20 @@ module WeixinAuthorize
         scene_str = options[:scene_str]
         post_url     = "#{qrcode_base_url}/create"
         qrcode_infos = {action_name: "QR_LIMIT_SCENE"}
-        qrcode_infos = qrcode_infos.merge(action_info(scene_id, scene_str))
+        qrcode_infos = qrcode_infos.merge(action_info(scene_id))
         http_post(post_url, qrcode_infos)
       end
+
+      # 为永久的字符串参数值
+      # options: scene_str
+      def create_qr_limit_str_scene(options)
+        scene_str = options[:scene_str]
+        post_url     = "#{qrcode_base_url}/create"
+        qrcode_infos = {action_name: "QR_LIMIT_STR_SCENE"}
+        qrcode_infos = qrcode_infos.merge(action_info(nil, scene_str))
+        http_post(post_url, qrcode_infos)
+      end
+
 
       # 通过ticket换取二维码, 直接访问即可显示！
       def qr_code_url(ticket)
@@ -36,7 +47,7 @@ module WeixinAuthorize
 
         def action_info(scene_id, scene_str=nil)
           scene_info = {}
-          scene_info[:scene_id] = scene_id
+          scene_info[:scene_id] = scene_id if !scene_id.nil?
           scene_info[:scene_str] = scene_str if !scene_str.nil?
           {action_info: {scene: scene_info}}
         end
