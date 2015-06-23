@@ -6,31 +6,27 @@ module WeixinAuthorize
 
       # 临时二维码
       def create_qr_scene(scene_id, expire_seconds=1800)
-        post_url     = "#{qrcode_base_url}/create"
         qrcode_infos = {action_name: "QR_SCENE", expire_seconds: expire_seconds}
-        qrcode_infos = qrcode_infos.merge(action_info(scene_id))
-        http_post(post_url, qrcode_infos)
+        qrcode_infos.merge!(action_info(scene_id))
+        http_post(qrcode_base_url, qrcode_infos)
       end
 
       # 永久二维码
       # options: scene_id, scene_str
       def create_qr_limit_scene(options)
         scene_id = options[:scene_id]
-        scene_str = options[:scene_str]
-        post_url     = "#{qrcode_base_url}/create"
         qrcode_infos = {action_name: "QR_LIMIT_SCENE"}
-        qrcode_infos = qrcode_infos.merge(action_info(scene_id))
-        http_post(post_url, qrcode_infos)
+        qrcode_infos.merge!(action_info(scene_id))
+        http_post(qrcode_base_url, qrcode_infos)
       end
 
       # 为永久的字符串参数值
       # options: scene_str
       def create_qr_limit_str_scene(options)
         scene_str = options[:scene_str]
-        post_url     = "#{qrcode_base_url}/create"
         qrcode_infos = {action_name: "QR_LIMIT_STR_SCENE"}
-        qrcode_infos = qrcode_infos.merge(action_info(nil, scene_str))
-        http_post(post_url, qrcode_infos)
+        qrcode_infos.merge!(action_info(nil, scene_str))
+        http_post(qrcode_base_url, qrcode_infos)
       end
 
 
@@ -42,7 +38,7 @@ module WeixinAuthorize
       private
 
         def qrcode_base_url
-          "/qrcode"
+          "/qrcode/create"
         end
 
         def action_info(scene_id, scene_str=nil)
