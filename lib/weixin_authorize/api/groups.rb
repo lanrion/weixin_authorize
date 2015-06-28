@@ -38,6 +38,17 @@ module WeixinAuthorize
         http_post(group_url, {openid: openid, to_groupid: to_groupid})
       end
 
+      # 批量移动用户分组
+      def batch_update_group_for_openids(openids, group_id)
+        group_url = "#{group_base_url}/members/batchupdate"
+        http_post(group_url, {openid_list: openids, to_groupid: group_id})
+      end
+
+      def delete_group(group_id)
+        group_url = "#{group_base_url}/delete"
+        http_post(group_url, {group: {id: group_id}})
+      end
+
       private
 
         def group_base_url

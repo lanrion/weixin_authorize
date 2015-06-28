@@ -8,18 +8,35 @@ describe WeixinAuthorize::Api::Groups do
     "test group_name_2"
   end
 
+  let(:groups) do
+    $client.groups
+  end
+
+  let(:last_group_id) do
+    groups.result["groups"][-1]["id"]
+  end
+
+  it "#delete all group step by step" do
+    group_ids = groups.result["groups"].collect{|group|group["id"]}
+    group_ids.each do |group_id|
+      res = $client.delete_group(group_id)
+      if res.code.to_s != "45009"
+        expect(res.code).to eq(WeixinAuthorize::OK_CODE)
+      end
+    end
+  end
+
   it "create a group" do
     response = $client.create_group(group_name)
     if response.code == WeixinAuthorize::OK_CODE
       expect(response.result["group"]["name"]).to eq(group_name)
     else
       expect(response.code).to eq(-1)
-      puts "SB WEIXIN says: system error"
+      puts "WEIXIN says: system error"
     end
   end
 
   it "get groups" do
-    groups = $client.groups
     expect(groups.result["groups"][-1]["name"]).to eq(group_name)
   end
 
@@ -32,7 +49,7 @@ describe WeixinAuthorize::Api::Groups do
     response = $client.create_group(group_name)
     if response.code != WeixinAuthorize::OK_CODE
       expect(response.code).to eq(-1)
-      puts "SB WEIXIN says: system error"
+      puts "WEIXIN says: system error"
     else
       expect(response.result["group"]["name"]).to eq(group_name)
       response = $client.update_group_name(response.result["group"]["id"], group_name_2)
@@ -43,12 +60,15 @@ describe WeixinAuthorize::Api::Groups do
   end
 
   it "#update_group_for_openid" do
-    groups = $client.groups
-    last_group_id = groups.result["groups"][-1]["id"]
     $client.update_group_for_openid(ENV["OPENID"], last_group_id)
     group = $client.get_group_for(ENV["OPENID"])
     expect(group.result["groupid"]).to eq(last_group_id)
     $client.update_group_for_openid(ENV["OPENID"], 0)
+  end
+
+  it "#batch update group for openids" do
+    res = $client.batch_update_group_for_openids([ENV["OPENID"]], last_group_id)
+    expect(res.code).to eq(WeixinAuthorize::OK_CODE)
   end
 
 end

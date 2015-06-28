@@ -42,17 +42,14 @@ describe WeixinAuthorize::Api::Custom do
 
   it "#send_video_custom" do
     pending("The test must have a media_id")
-    this_should_not_get_executed
   end
 
   it "#send_music_custom" do
     pending("The test must have a media_id")
-    this_should_not_get_executed
   end
 
   it "#send_voice_custom" do
     pending("The test must have a media_id")
-    this_should_not_get_executed
   end
 
 end
