@@ -26,7 +26,7 @@ Support using [Redis](http://redis.io) to store `access_token`
 * 多媒体管理
 * JS SDK（ticket支持缓存）
 
-## V2.0开发中： 
+## V2.0开发中：
 https://github.com/lanrion/weixin_authorize/milestones/v2.0-dev
 
 1. 重构API实现，调用方式
@@ -42,7 +42,7 @@ Go to https://github.com/lanrion/weixin_authorize/issues/2, apply a weixin sandb
 
 https://github.com/lanrion/weixin_authorize/blob/master/spec/spec_helper.rb
 
-change your infos: 
+change your infos:
 
 ```ruby
 ENV["APPID"]="wxe371e0960de5426a"
@@ -64,4 +64,4 @@ then run `rspec .`
 
   如果你觉得我的gem对你有帮助，欢迎打赏支持，:smile:
 
-  ![](https://raw.githubusercontent.com/lanrion/my_config/master/imagex/donation_me.png)
+  ![](https://raw.githubusercontent.com/lanrion/my_config/master/imagex/donation_me_wx.jpg)
