@@ -50,7 +50,7 @@ module WeixinAuthorize
 
     # return hash
     def load_json(string)
-      result_hash = JSON.parse(string)
+      result_hash = JSON.parse(string.force_encoding("UTF-8").gsub(/[\u0011-\u001F]/, ""))
       code   = result_hash.delete("errcode")
       en_msg = result_hash.delete("errmsg")
       ResultHandler.new(code, en_msg, result_hash)
