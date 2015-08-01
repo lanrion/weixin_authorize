@@ -17,11 +17,23 @@ describe WeixinAuthorize::Api::Media do
   end
 
   let(:remote_png_path) do
-    "https://ruby-china-files.b0.upaiyun.com/user/big_avatar/273.jpg"
+    "https://ruby-china-files.b0.upaiyun.com/photo/5982eaaa64f467d9dbda03ad4f40ea27.png"
   end
 
   let(:remote_jpg_path) do
     "http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ce55457e4334970a537e187df4a3baad/03087bf40ad162d99455ef4d13dfa9ec8b13632762d0ed14.jpg"
+  end
+
+  it "can upload a jpg image and get url" do
+    response = $client.upload_image(image_jpg_file)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
+    expect(response.result.keys).to eq(["url"])
+  end
+
+  it "can upload a png image and get url" do
+    response = $client.upload_image(remote_png_path)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
+    expect(response.result.keys).to eq(["url"])
   end
 
   it "can upload a jpg File image" do

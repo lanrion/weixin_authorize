@@ -68,6 +68,19 @@ module WeixinAuthorize
         http_post("#{media_base_url}/uploadvideo", video_msg)
       end
 
+      # 上传图文消息内的图片获取URL
+      # https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN
+      #
+      # return:
+      # {
+      #   "url":  "http://mmbiz.qpic.cn/mmbiz/gLO17UPS6FS2xsypf378iaNhWacZ1G1UplZYWEYfwvuU6Ont96b1roYs CNFwaRrSaKTPCUdBK9DgEHicsKwWCBRQ/0"
+      # }
+      def upload_image(image)
+        file = process_file(image)
+        upload_image_url = "#{media_base_url}/uploadimg"
+        http_post(upload_image_url, {media: file}, {type: 'image'}, 'file')
+      end
+
       private
 
         def media_base_url
