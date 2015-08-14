@@ -29,11 +29,11 @@ module WeixinAuthorize
       # }
       def update_remark(openid, remark)
         update_url = "/user/info/updateremark"
-        payload = {
+        post_body = {
           openid: openid,
           remark: remark
         }
-        http_post(update_url, payload)
+        http_post(update_url, post_body)
       end
 
       private

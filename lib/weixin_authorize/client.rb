@@ -66,14 +66,14 @@ module WeixinAuthorize
     end
 
     # 暴露出：http_get,http_post两个方法，方便第三方开发者扩展未开发的微信API。
-    def http_get(url, headers={}, endpoint="plain")
-      headers = headers.merge(access_token_param)
-      WeixinAuthorize.http_get_without_token(url, headers, endpoint)
+    def http_get(url, url_params={}, endpoint="plain")
+      url_params = url_params.merge(access_token_param)
+      WeixinAuthorize.http_get_without_token(url, url_params, endpoint)
     end
 
-    def http_post(url, payload={}, headers={}, endpoint="plain")
-      headers = access_token_param.merge(headers)
-      WeixinAuthorize.http_post_without_token(url, payload, headers, endpoint)
+    def http_post(url, post_body={}, url_params={}, endpoint="plain")
+      url_params = access_token_param.merge(url_params)
+      WeixinAuthorize.http_post_without_token(url, post_body, url_params, endpoint)
     end
 
     private

@@ -13,6 +13,10 @@ Support using [Redis](http://redis.io) to store `access_token`
 
 [JS SDK](https://github.com/lanrion/weixin_authorize/wiki/js-sdk)
 
+## 支持自助实现API
+
+详情见：https://github.com/lanrion/weixin_authorize/wiki/diy-your-api
+
 ## 已经完成API
 
 * 客服消息

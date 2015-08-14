@@ -30,24 +30,23 @@ module WeixinAuthorize
   OK_MSG  = "ok".freeze
   OK_CODE = 0.freeze
   GRANT_TYPE = "client_credential".freeze
-
   # 用于标记endpoint可以直接使用url作为完整请求API
   CUSTOM_ENDPOINT = "custom_endpoint".freeze
 
   class << self
 
-    def http_get_without_token(url, headers={}, endpoint="plain")
+    def http_get_without_token(url, url_params={}, endpoint="plain")
       get_api_url = endpoint_url(endpoint, url)
-      load_json(resource(get_api_url).get(params: headers))
+      load_json(resource(get_api_url).get(params: url_params))
     end
 
-    def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
+    def http_post_without_token(url, post_body={}, url_params={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
       # to json if invoke "plain"
       if endpoint == "plain" || endpoint == CUSTOM_ENDPOINT
-        payload = JSON.dump(payload)
+        post_body = JSON.dump(post_body)
       end
-      load_json(resource(post_api_url).post(payload, params: headers))
+      load_json(resource(post_api_url).post(post_body, params: url_params))
     end
 
     def resource(url)
