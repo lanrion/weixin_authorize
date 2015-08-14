@@ -59,4 +59,9 @@ describe WeixinAuthorize::Api::Custom do
     expect(response.result.keys).to eq(["recordlist", "retcode"])
   end
 
+  it "#create_kf_session" do
+    response = $client.create_kf_session("test1@test", ENV["APPID"], "test kfsession")
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
+  end
+
 end

@@ -3,6 +3,8 @@ module WeixinAuthorize
   module Api
     module Custom
 
+      CUSTOM_SERVICE = "https://api.weixin.qq.com/customservice".freeze
+
       # 发送文本消息
       # {
       #     "touser":"OPENID",
@@ -112,7 +114,7 @@ module WeixinAuthorize
       # options:
       # page_index: 查询第几页，从1开始
       # page_size: 每页大小，每页最多拉取50条
-      CUSTOM_RECORD_URL = "https://api.weixin.qq.com/customservice/msgrecord/getrecord".freeze
+      CUSTOM_RECORD_URL = "#{CUSTOM_SERVICE}/msgrecord/getrecord".freeze
       def get_custom_msg_record(start_time, end_time, options={})
         start_time, end_time = start_time.to_i, end_time.to_i
         page_index = options[:page_index] || 1
@@ -123,7 +125,24 @@ module WeixinAuthorize
           pageindex: page_index,
           pagesize: page_size
         }
-        http_post(CUSTOM_RECORD_URL, option, {}, WeixinAuthorize::CUSTOM_ENDPOINT)
+        http_post(CUSTOM_RECORD_URL, option, {}, CUSTOM_ENDPOINT)
+      end
+
+      # 客服接口创建会话
+      # POST数据示例如下：
+      #  {
+      #     "kf_account" : "test1@test",
+      #     "openid" : "OPENID",
+      #     "text" : "这是一段附加信息"
+      #  }
+      KF_SESSION_URL = "#{CUSTOM_SERVICE}/kfsession/create".freeze
+      def create_kf_session(account, open_id, text)
+        post_body = {
+          kf_account: account,
+          openid: open_id,
+          text: text
+        }
+        http_post(KF_SESSION_URL, post_body, {}, CUSTOM_ENDPOINT)
       end
 
       private
