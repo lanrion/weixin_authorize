@@ -27,9 +27,12 @@ module WeixinAuthorize
     autoload(:RedisStore,  "weixin_authorize/js_ticket/redis_store")
   end
 
-  OK_MSG  = "ok"
-  OK_CODE = 0
-  GRANT_TYPE = "client_credential"
+  OK_MSG  = "ok".freeze
+  OK_CODE = 0.freeze
+  GRANT_TYPE = "client_credential".freeze
+
+  # 用于标记endpoint可以直接使用url作为完整请求API
+  CUSTOM_ENDPOINT = "custom_endpoint".freeze
 
   class << self
 
@@ -40,7 +43,10 @@ module WeixinAuthorize
 
     def http_post_without_token(url, payload={}, headers={}, endpoint="plain")
       post_api_url = endpoint_url(endpoint, url)
-      payload = JSON.dump(payload) if endpoint == "plain" # to json if invoke "plain"
+      # to json if invoke "plain"
+      if endpoint == "plain" || endpoint == CUSTOM_ENDPOINT
+        payload = JSON.dump(payload)
+      end
       load_json(resource(post_api_url).post(payload, params: headers))
     end
 
@@ -57,6 +63,8 @@ module WeixinAuthorize
     end
 
     def endpoint_url(endpoint, url)
+      # 此处为了应对第三方开发者如果自助对接接口时，URL不规范的情况下，可以直接使用URL当为endpoint
+      return url if endpoint == CUSTOM_ENDPOINT
       send("#{endpoint}_endpoint") + url
     end
 

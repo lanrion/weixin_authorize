@@ -52,4 +52,11 @@ describe WeixinAuthorize::Api::Custom do
     pending("The test must have a media_id")
   end
 
+  it "#get_custom_msg_record" do
+    option = {pageindex: 1, pagesize: 10}
+    response = $client.get_custom_msg_record(Time.now - 10.days, Time.now, option)
+    expect(response.code).to eq(WeixinAuthorize::OK_CODE)
+    expect(response.result.keys).to eq(["recordlist", "retcode"])
+  end
+
 end

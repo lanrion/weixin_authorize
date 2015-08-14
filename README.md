@@ -25,6 +25,7 @@ Support using [Redis](http://redis.io) to store `access_token`
 * 群发消息
 * 多媒体管理
 * JS SDK（ticket支持缓存）
+* 更多请查看测试例子
 
 ## V2.0开发中：
 https://github.com/lanrion/weixin_authorize/milestones/v2.0-dev
