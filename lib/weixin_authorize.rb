@@ -5,6 +5,7 @@ if defined? Yajl
 else
   require "json"
 end
+require "erb"
 
 require "weixin_authorize/carrierwave/weixin_uploader"
 require "weixin_authorize/config"

@@ -55,7 +55,7 @@ module WeixinAuthorize
         def generate_media(msg_type, media_info, option)
           msg_type = msg_type.to_s
           if not MSG_TYPE.include?(msg_type)
-            raise MediaTypeException, "#{msg_type} is a valid msg_type"
+            raise MediaTypeException, "#{msg_type} is a invalid msg_type"
           end
           {
             msg_type  => convert_media_info(msg_type, media_info),
