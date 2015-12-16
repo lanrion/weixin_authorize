@@ -5,7 +5,7 @@ module WeixinAuthorize
 
       # 网站应用微信登录授权URL
       # 文档：http://t.cn/RyZVWEY
-      def qrcode_authorize_url(uri, scope="snsapi_login", state="web_wx_login")
+      def qrcode_authorize_url(redirect_uri, scope="snsapi_login", state="web_wx_login")
         uri = encode_url(redirect_uri)
         WeixinAuthorize.open_endpoint("/connect/qrconnect?appid=#{app_id}&redirect_uri=#{uri}&response_type=code&scope=#{scope}&state=#{state}#wechat_redirect")
       end
