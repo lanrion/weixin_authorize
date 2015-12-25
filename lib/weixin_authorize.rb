@@ -88,6 +88,30 @@ module WeixinAuthorize
       "https://open.weixin.qq.com#{url}"
     end
 
+    def cache
+      if config.try(:cache_store)
+        config.cache_store
+      elsif on_rails?
+        Rails.cache
+      else
+        raise Errors::ConfigException, "You should appoint cache_store, e.g. Rails.cache or lookup ActiveSupport::Cache#lookup_store"
+      end
+    end
+
+    def logger
+      if config.try(:logger)
+        config.logger
+      elsif on_rails?
+        Rails.logger
+      else
+        raise Errors::ConfigException, "You should appoint one logger, e.g. Rails.logger or lookup ActiveSupport::Logger"
+      end
+    end
+
+    def on_rails?
+      defined?(Rails)
+    end
+
   end
 
 end

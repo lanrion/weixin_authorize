@@ -26,6 +26,6 @@ module WeixinAuthorize
   end
 
   class Config
-    attr_accessor :redis, :rest_client_options
+    attr_accessor :redis, :rest_client_options, :cache_store, :logger
   end
 end

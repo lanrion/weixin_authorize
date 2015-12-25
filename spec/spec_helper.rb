@@ -24,6 +24,28 @@ require "codeclimate-test-reporter"
 
 require "pry-rails"
 
+module Rails
+  class Logger
+    def info(msg)
+      puts msg
+    end
+  end
+
+  def self.logger
+    Logger.new
+  end
+
+  class Cache
+    def fetch(key, options={}, &block)
+      yield block
+    end
+  end
+
+  def self.cache
+    Cache.new
+  end
+end
+
 Coveralls.wear!
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
