@@ -1,9 +1,13 @@
 # encoding: utf-8
+require "monitor"
 require "redis"
 require 'digest/md5'
 module WeixinAuthorize
 
   class Client
+
+    include MonitorMixin
+
     include Api::User
     include Api::Menu
     include Api::Custom
@@ -20,18 +24,19 @@ module WeixinAuthorize
 
     # options: redis_key, custom_access_token
     def initialize(app_id, app_secret, options={})
-      @app_id     = app_id
+      @app_id = app_id
       @app_secret = app_secret
       @jsticket_expired_at = @expired_at = Time.now.to_i
-      @redis_key  = security_redis_key(options[:redis_key] || "weixin_#{app_id}")
+      @redis_key = security_redis_key(options[:redis_key] || "weixin_#{app_id}")
       @jsticket_redis_key = security_redis_key("js_sdk_#{app_id}")
       @custom_access_token = options[:custom_access_token]
+      super() # Monitor#initialize
     end
 
     # return token
     def get_access_token
       return custom_access_token if !custom_access_token.nil?
-      token_store.access_token
+      synchronize{ token_store.access_token }
     end
 
     # 检查appid和app_secret是否有效。
