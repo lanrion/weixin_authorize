@@ -11,6 +11,28 @@ module WeixinAuthorize
         http_get(user_info_url, {openid: openid, lang: lang})
       end
 
+      # 批量获取用户基本信息
+      # https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
+      # POST数据格式：JSON
+      # POST数据例子：
+        # {
+        #   "user_list": [
+        #     {
+        #       "openid": "otvxTs4dckWG7imySrJd6jSi0CWE",
+        #       "lang": "zh-CN"
+        #     },
+        #     {
+        #       "openid": "otvxTs_JZ6SEiP0imdhpi50fuSZg",
+        #       "lang": "zh-CN"
+        #     }
+        #   ]
+        # }
+      def users(user_list)
+        user_info_batchget_url = "#{user_base_url}/info/batchget"
+        post_body = user_list
+        http_post(user_info_batchget_url, post_body)
+      end
+
       # 获取关注者列表
       # https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID
       def followers(next_openid="")
