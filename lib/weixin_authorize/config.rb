@@ -13,6 +13,10 @@ module WeixinAuthorize
       @redis ||= config.redis
     end
 
+    def key_expired
+      config.key_expired || 100
+    end
+
     # 可选配置: RestClient timeout, etc.
     # key 必须是符号
     # 如果出现 RestClient::SSLCertificateNotVerified Exception: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed
@@ -26,6 +30,6 @@ module WeixinAuthorize
   end
 
   class Config
-    attr_accessor :redis, :rest_client_options
+    attr_accessor :redis, :rest_client_options, :key_expired
   end
 end

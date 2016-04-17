@@ -55,6 +55,7 @@ redis_with_ns = Redis::Namespace.new("#{namespace}", :redis => redis)
 
 WeixinAuthorize.configure do |config|
   config.redis = redis_with_ns
+  # config.key_expired = 200
   config.rest_client_options = {timeout: 10, open_timeout: 10, verify_ssl: true}
 end
 
