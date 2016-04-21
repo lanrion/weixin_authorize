@@ -19,7 +19,7 @@ module WeixinAuthorize
           client.access_token, "expired_at",
           client.expired_at
         )
-        weixin_redis.expireat(client.redis_key, client.expired_at.to_i-100) # 提前10秒超时
+        weixin_redis.expireat(client.redis_key, client.expired_at.to_i)
       end
 
       def access_token

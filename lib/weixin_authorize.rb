@@ -88,6 +88,10 @@ module WeixinAuthorize
       "https://open.weixin.qq.com#{url}"
     end
 
+    def calculate_expire(expires_in)
+      Time.now + expires_in.to_i - key_expired
+    end
+
   end
 
 end

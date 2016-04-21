@@ -32,7 +32,7 @@ module WeixinAuthorize
       def set_jsticket
         result = client.http_get("/ticket/getticket", {type: 1}).result
         client.jsticket = result["ticket"]
-        client.jsticket_expired_at = result["expires_in"] + Time.now.to_i
+        client.jsticket_expired_at = WeixinAuthorize.calculate_expire(result["expires_in"])
       end
 
     end
