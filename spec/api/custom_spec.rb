@@ -44,6 +44,10 @@ describe WeixinAuthorize::Api::Custom do
     pending("The test must have a media_id")
   end
 
+  it "#send_mpnews_custom" do
+    pending("The test must have a media_id")
+  end
+
   it "#send_music_custom" do
     pending("The test must have a media_id")
   end

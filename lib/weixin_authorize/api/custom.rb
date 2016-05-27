@@ -62,6 +62,21 @@ module WeixinAuthorize
         http_post(custom_base_url, message)
       end
 
+      # 根据media_id发送图文消息
+      # {
+      #   "touser":"OPENID",
+      #   "msgtype":"mpnews",
+      #   "mpnews":
+      #   {
+      #     "media_id":"MEDIA_ID"
+      #   }
+      # }
+      def send_mpnews_custom(to_user, media_id, options={})
+        mpnews_options = {media_id: media_id}.merge(options)
+        message = default_options(to_user, "mpnews").merge({mpnews: mpnews_options})
+        http_post(custom_base_url, message)
+      end
+
       # 发送音乐消息
       # {
       #     "touser":"OPENID",
