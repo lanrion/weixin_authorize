@@ -11,6 +11,15 @@ module WeixinAuthorize
         http_post(qrcode_base_url, qrcode_infos)
       end
 
+      # 临时字符串参数二维码
+      def create_qr_str_scene(options, expire_seconds=1800)
+        scene_str = options[:scene_str]
+        qrcode_infos = {action_name: "QR_STR_SCENE", expire_seconds: expire_seconds}
+        qrcode_infos.merge!(action_info(nil, scene_str))
+        http_post(qrcode_base_url, qrcode_infos)
+      end
+
+
       # 永久二维码
       # options: scene_id, scene_str
       def create_qr_limit_scene(options)
